@@ -1,0 +1,1 @@
+::1 - - [21/Apr/2017:13:01:56 +0000] "GET /api/1.0/city_policy?coordinates=[22.7470913200683594,38.27228423538098]&issue=garbage HTTP/1.1" 200 187 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"

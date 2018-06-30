@@ -1,0 +1,107 @@
+﻿[
+  {
+    "_url": "/admin/add_user",
+    "_method": "POST",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/edit_user",
+    "_method": "POST",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/edit_user_account",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/change_user_pass",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/myprofile",
+    "_method": "GET",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/user/:username",
+    "_method": "GET",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/users",
+    "_method": "GET",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/roles",
+    "_method": "GET",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/cities",
+    "_method": "GET",
+    "_role_ids": [ 1 ]
+  },
+  {
+    "_url": "/admin/departments",
+    "_method": "GET",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/add_departments",
+    "_method": "POST",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/edit_departments",
+    "_method": "POST",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/departments",
+    "_method": "POST",
+    "_role_ids": [ 1, 2 ]
+  },
+  {
+    "_url": "/admin/issue",
+    "_method": "GET",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/bugs/search",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/bugs/update",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/bugs/comment",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/bugs/comment/add",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/bugs/comment/tags",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3, 4, 5 ]
+  },
+  {
+    "_url": "/admin/municipality",
+    "_method": "POST",
+    "_role_ids": [ 1, 2, 3 ]
+  },
+  {
+    "_url": "/admin/edit_city",
+    "_method": "POST",
+    "_role_ids": [ 1, 2 ]
+  }
+]

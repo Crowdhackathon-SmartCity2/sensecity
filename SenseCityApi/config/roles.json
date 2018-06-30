@@ -1,0 +1,26 @@
+﻿[
+  {
+    "id": 1,
+    "role_name": "sensecityAdmin"
+  },
+  {
+    "id": 2,
+    "role_name": "cityAdmin"
+  },
+  {
+    "id": 3,
+    "role_name": "cityManager"
+  },
+  {
+    "id": 4,
+    "role_name": "departmentAdmin"
+  },
+  {
+    "id": 5,
+    "role_name": "departmentUser"
+  },
+  {
+    "id": 6,
+    "role_name": "Anonymous"
+  }  
+]
