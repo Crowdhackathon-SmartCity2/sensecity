@@ -1,0 +1,377 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <!-- <div class="card"> -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header" >
+                                <p class="category">{{'ISSUE_MAP' | translate}}</p>
+                                <p class="category category-desc">{{'MARK_ISSUE' | translate}}</p>
+                                <hr />
+                                <div>
+                                    <div class="input-group">
+                                        <input class="form-control flex-input-group-append" #addressSearchInput placeholder="{{'ADDRESS' | translate}}" aria-describedby="enter address">
+                                        <div class="input-group-append">
+                                            <button mat-button class="btn-light" (click)="searchAddress(addressSearchInput.value)" style="background-color: #e9ecef;">{{'SEARCH' | translate}} </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="min-height:500px; height:70vh" id="issuesmap"
+                            leaflet
+                            (leafletMapReady)="onMapReady($event)"
+                            [leafletOptions]="mapInit"
+                            [leafletLayers]="mapLayers"
+                            [leafletZoom]="issueZoom"
+                            [leafletCenter]="issueCenter"
+                            [leafletLayersControl]="layersControl"
+                            >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <mat-horizontal-stepper [linear]="true" (selectionChange)="stepperSelectionChange($event)" #stepper [selectedIndex]="selectedStepIndex">
+                                <mat-step [stepControl]="issueReportForm">
+                                    <form [formGroup]="issueReportForm">
+                                        <ng-template matStepLabel></ng-template>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-12 text-center step_header">
+                                                    <h3><i>{{'ISSUE_REPORT' | translate}}</i></h3>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field class="full-width">
+                                                        <input matInput placeholder="{{'LONGITUDE' | translate}}" formControlName="longitude"/>
+                                                        <mat-error *ngIf="issueReportForm.controls.longitude.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                                    </mat-form-field>
+                                                    <mat-form-field class="full-width">
+                                                        <input matInput placeholder="{{'LATITUDE' | translate}}" formControlName="latitude"/>
+                                                        <mat-error *ngIf="issueReportForm.controls.latitude.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                                    </mat-form-field>
+                                                    <mat-form-field class="full-width">
+                                                        <input matInput placeholder="{{'ADDRESS' | translate}}" formControlName="address"/>
+                                                        <mat-error *ngIf="issueReportForm.controls.address.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <mat-form-field class="full-width">
+                                                        <mat-select placeholder="{{'ISSUE' | translate}}" formControlName="issue_type">
+                                                            <mat-option *ngFor = "let issue of issues; let issue_index = index" value="{{issue.type}}" (click)="changeIssueType(issue_index)" >{{issue.type | uppercase |translate}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <mat-form-field class="full-width">
+                                                        <mat-select placeholder="{{'ISSUE_TYPE' | translate}}" formControlName="issue_subtype">
+                                                            <mat-option *ngFor = "let subtype of issues[issueSelectedIndex].subtypes" value="{{subtype}}" (click)="changeIssueSubType(subtype)">{{'ISSUE_SUBTYPES.'+subtype | uppercase |translate}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <mat-form-field class="full-width" *ngIf ="subtypeOtherSelected" >
+                                                        <input matInput maxlength="40" #short_desc placeholder="{{'SHORT_DESC' | translate}}" formControlName="issue_misc_desc" [required]=subtypeOtherSelected/>
+                                                        <!-- <mat-hint align="start">{{'SHORT_DESC_HINT' | translate}}</mat-hint> -->
+                                                        <mat-hint align="end">{{short_desc.value.length}} / 40</mat-hint>
+                                                        <mat-error *ngIf="issueReportForm.controls.issue_misc_desc.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                                    </mat-form-field>
+                                                    <div class="input-group" style="padding: 0.4375em 0;">
+                                                        <div class="input-group-prepend">
+                                                            <label for="inputGroupFile01" class="input-group-text" style="font-size:inherit; cursor: pointer;">{{'PHOTO' | translate}}
+                                                                <!-- <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onSelectFile($event)" style="display:none"> -->
+                                                                <input type="file" class="custom-file-input" id="inputGroupFile01" #imageUpload (change)="onSelectFile($event)" style='display:none'>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-control flex-input-group">
+                                                            <span>{{imageName}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf = 'imageName' class="image-container">
+                                                        <img [src]="imageUrl" class='file-thumb-wrapper'>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <mat-form-field class="full-width">
+                                                        <textarea matInput placeholder="{{'COMMENT' | translate}}" matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5" formControlName="comment"></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row stepper_nav_buttons">
+                                            <div class="col-12 text-right">
+                                                <button mat-raised-button class="grey300-material-palette" matStepperNext [disabled]="step2_disabled">{{'NEXT' | translate}}</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </mat-step>
+
+
+
+                                <mat-step [stepControl]="eponymousReportForm">
+                                    <ng-template matStepLabel></ng-template>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 text-center step_header">
+                                                <h3><i>{{'EPONYMOUS_REPORT' | translate}}</i></h3>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form_header" [innerHTML]="issueCityPolicy?.policy_desc"></div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="issueCityPolicy?.add_issue == 1">
+                                            <div class="row" >
+                                                <div class="col-md-6" >
+                                                    <mat-checkbox [(ngModel)]="eponymousCheckbox" color="accent" #eponymousCheckboxRef (change)="checkEponymoys($event)">{{'EPONYMOUS_REPORT' | translate}}</mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf='eponymousCheckbox'>
+
+                                                <div class="col-md-6">
+                                                    <form [formGroup]="eponymousReportForm">
+                                                        <mat-form-field class="full-width">
+                                                            <input matInput placeholder="{{'FULL_NAME' | translate}}" formControlName="fullname" [required]=true/>
+                                                            <mat-error *ngIf="eponymousReportForm.controls.fullname.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                                        </mat-form-field>
+                                                        <mat-form-field class="full-width">
+                                                            <input matInput placeholder="Email" formControlName="email" [required]=emailChecked/>
+                                                            <mat-error *ngIf="eponymousReportForm.controls.email.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                                        </mat-form-field>
+                                                        <mat-form-field class="full-width">
+                                                            <input matInput placeholder="{{'MOBILE' | translate}}" formControlName="mobile" [required]=smsChecked/>
+                                                            <mat-error *ngIf="eponymousReportForm.controls.mobile.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                                        </mat-form-field>
+                                                    </form>
+                                                </div>
+
+                                                <div class="col-md-6 card info_modes_card">
+                                                    <div>
+                                                        {{'INFO_MODES' | translate}}
+                                                    </div>
+
+                                                    <div *ngIf = "cityPolicy?.active_sms_service">
+                                                        <mat-checkbox color="primary" #sms_checkbox [(ngModel)]="smsChecked" [ngModelOptions]="{standalone: true}" [disabled]="cityPolicy?.mandatory_sms">sms</mat-checkbox>
+                                                    </div>
+                                                    <div>
+                                                        <mat-checkbox color="primary" #email_checkbox [(ngModel)]="emailChecked" [ngModelOptions]="{standalone: true}" [disabled]="cityPolicy?.mandatory_email">email</mat-checkbox>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row stepper_nav_buttons">
+                                        <div class="col-6 text-left">
+                                            <button mat-raised-button class="grey300-material-palette" matStepperPrevious>{{'PREVIOUS' | translate}}</button>
+                                        </div>
+                                        <div class="col-6 text-right" *ngIf="issueCityPolicy?.add_issue == 1">
+                                            <button mat-raised-button class="grey300-material-palette" matStepperNext>{{'NEXT' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </mat-step>
+
+
+
+                                <mat-step>
+                                    <ng-template matStepLabel></ng-template>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 text-center step_header">
+                                                <h3><i>{{'RECOMMENDED_ISSUES' | translate}}</i></h3>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form_header">
+                                                    {{'RECOMMENDED_ISSUES_DESC' | translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" style="margin:5px 0px" *ngFor="let rec_issue of recommendedIssues; let index = index" [ngClass]="{'card-selected':selectedRecomIndex == index}">
+                                            <div class="card-body row">
+                                                <div class="col-lg-1 col-md-2 flex-align-mid" >
+                                                    <i class="{{rec_issue.icon}}" style="font-size:3em"></i>
+                                                </div>
+                                                <div class="col-lg-11 col-md-10" >
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><strong>{{ 'ID' | translate }}</strong></td>
+                                                                <td>{{rec_issue.id}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>{{ 'STATUS' | translate }}</strong></td>
+                                                                <td>{{ rec_issue.status | translate}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>{{ 'ADDRESS' | translate }}</strong></td>
+                                                                <td>{{ rec_issue.cf_city_address}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>{{ 'DESCRIPTION' | translate }}</strong></td>
+                                                                <td>{{ rec_issue.url}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+                                                        <strong style="padding:0 0.75em 0 0.75em"><a target="_black" href={{rec_issue.URL}}>{{ 'MORE' | translate }}...</a></strong>
+                                                        <div class="text-right">
+                                                            <button mat-button class="btn-light button-select" (click)="selectRecommendedIssue(index)">{{'SELECTION' | translate}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row stepper_nav_buttons">
+                                        <div class="col-6 text-left">
+                                            <button mat-raised-button class="grey300-material-palette" matStepperPrevious>{{'PREVIOUS' | translate}}</button>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <button mat-raised-button class="grey300-material-palette" matStepperNext>{{'NEXT' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </mat-step>
+
+
+
+                                <mat-step>
+                                    <ng-template matStepLabel></ng-template>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 text-center step_header">
+                                                <h3><i>{{'CERTIFICATION' | translate}}</i></h3>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form_header">
+                                                    <span *ngIf='eponymousCheckbox == false'>{{'ANONYMOUS_ΝΟ_CERTIFICATION' | translate}}</span>
+                                                    <div *ngIf='eponymousCheckbox == true'>
+                                                        <div *ngIf = 'checkActivatedGuards()'>
+                                                            <span *ngIf ='emailActivated && mobileActivated'>{{'CERTIFIED_MAIL_MOBILE' | translate}}</span>
+                                                            <span *ngIf ='!mobileActivated && emailActivated'>{{'CERTIFIED_MAIL' | translate}}</span>
+                                                            <span *ngIf ='!emailActivated && mobileActivated'>{{'CERTIFIED_MOBILE' | translate}}</span>
+                                                        </div>
+
+                                                        <div *ngIf = '!checkActivatedGuards()'>
+                                                            {{'CERTIFICATION_DESC' | translate}}
+                                                        </div>
+
+                                                        <div *ngIf = 'emailChecked && !emailActivated'>
+                                                            <div class="row" style="margin-top:1em">
+                                                                <div class="col-12">
+                                                                    <strong>{{eponymousReportForm.controls.email.value}}</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-10">
+                                                                            <mat-form-field class="full-width">
+                                                                                <input matInput #emailCertCode placeholder="{{'EMAIL_CERT_CODE' | translate}}"/>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="col-2 flex-align-mid">
+                                                                            <i *ngIf="emailCodeChecked && emailActivated" class="fa fa-check fa-2x"></i>
+                                                                            <i *ngIf="emailCodeChecked && !emailActivated" class="fa fa-times fa-2x"></i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 flex-vertical-align">
+                                                                    <button mat-raised-button color="primary" (click)="requestEmailCode()" [disabled]="emailCodeSent">{{'REQUEST_CODE' | translate}}</button>
+                                                                </div>
+                                                                <div class="col-md-4 flex-vertical-align">
+                                                                    <button mat-button color="primary" style="background-color:#ddd" (click)="activateEmail(emailCertCode.value)">{{'CERTIFICATION' | translate}}</button>
+                                                                </div>
+
+                                                                <div class="col-12" *ngIf="emailCodeSent && !emailActivated">
+                                                                    <p><i>{{ 'EMAIL_CODE_SENT' | translate: {email:eponymousReportForm.controls.email.value} }}</i></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div *ngIf = 'smsChecked && !mobileActivated'>
+                                                            <div class="row" style="margin-top:1em">
+                                                                <div class="col-12">
+                                                                    <strong>{{eponymousReportForm.controls.mobile.value}}</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-10">
+                                                                            <mat-form-field class="full-width">
+                                                                                <input matInput #mobileCertCode placeholder="{{'MOBILE_CERT_CODE' | translate}}"/>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="col-2 flex-align-mid">
+                                                                            <i *ngIf="mobileCodeChecked && mobileActivated" class="fa fa-check fa-2x"></i>
+                                                                            <i *ngIf="mobileCodeChecked && !mobileActivated" class="fa fa-times fa-2x"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 flex-vertical-align">
+                                                                    <button mat-raised-button color="primary" (click)="requestMobileCode()" [disabled]="mobileCodeSent">{{'REQUEST_CODE' | translate}}</button>
+                                                                </div>
+                                                                <div class="col-md-4 flex-vertical-align">
+                                                                    <button mat-button color="basic" style="background-color:#ddd" (click)="activateMobile(mobileCertCode.value)">{{'CERTIFICATION' | translate}}</button>
+                                                                </div>
+
+                                                                <div class="col-12" *ngIf="mobileCodeSent && !mobileCertCodeActivated">
+                                                                    <p><i>{{ 'MOBILE_CODE_SENT' | translate: {mobile:eponymousReportForm.controls.mobile.value} }}</i></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row stepper_nav_buttons">
+                                        <div class="col-6 text-left">
+                                            <button mat-raised-button class="grey300-material-palette" matStepperPrevious>{{'PREVIOUS' | translate}}</button>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <button mat-raised-button class="grey300-material-palette" matStepperNext [disabled]="!checkActivatedGuards() && eponymousCheckbox">{{'NEXT' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </mat-step>
+
+
+
+                                <mat-step>
+                                    <ng-template matStepLabel></ng-template>
+                                    <div class="container">
+                                        <div class="row text-center">
+                                            <div class="col-12 text-center step_header">
+                                                <h3><i>{{'SUBMIT_REPORT' | translate}}</i></h3>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form_header">
+                                                    {{'SUBMIT_REPORT_HEADER' | translate}}
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button mat-raised-button color="accent" (click)="sendIssueReport()" [disabled]="issueReportSent || (!checkActivatedGuards() && eponymousCheckbox)">{{'SUBMIT_REPORT_BUTTON' | translate}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row stepper_nav_buttons">
+                                        <div class="col-6 text-left">
+                                            <button mat-raised-button class="grey300-material-palette" matStepperPrevious>{{'PREVIOUS' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </mat-step>
+
+                            </mat-horizontal-stepper>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>

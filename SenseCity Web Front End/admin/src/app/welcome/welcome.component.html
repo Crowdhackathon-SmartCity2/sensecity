@@ -1,0 +1,25 @@
+<ng-progress [meteor]="true" [thick]="true" [color]="'#FFFFFF'"></ng-progress>
+
+<app-header></app-header>
+<video autoplay loop muted data-wow-delay="0.5s" poster="assets/video_screen.png" id="video-background">
+    <source type="video/webm" src="http://sense.city/movie.webm" >
+    <source type="video/mp4" src="http://sense.city/movie.mp4" >
+</video>
+<!-- <div style="min-height:100vh; min-width:350px; background: url('assets/welcome_image.JPG'); background-size: 100% 100%;"> -->
+<div class="container">
+  <div class="row justify-content-center voffset15" >
+     <div class="col-xl-4 col-lg-5 col-md-8  text-right" style="background:rgba(0, 0, 0, 0.6)">
+        <div style="color:white; padding:1rem">
+           <h2 [innerHTML] = "'WELCOME.TITLE' | translate"></h2>
+           <h4 [innerHTML] = "'WELCOME.SUBTITLE' | translate"><br /></h4>
+           <div class="voffset20">
+              <button mat-raised-button style="margin-right:2%" class="grey300-material-palette" routerLink="/dashboard">{{'WELCOME.SIGN_IN' | translate}}</button>
+              <button mat-raised-button style="margin-left:2%" color="accent" [routerLink]="['/signup']">{{'WELCOME.SIGN_UP' | translate}}</button>
+           </div>
+
+        </div>
+     </div>
+
+  </div>
+</div>
+<!-- </div> -->

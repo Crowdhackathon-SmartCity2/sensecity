@@ -1,0 +1,314 @@
+<div class="row">
+    <div class="col-md-12 back_btn">
+        <button mat-raised-button class="btn-light" [routerLink]="['../']"><i class="material-icons" style="font-size: 20px">arrow_back</i> {{'BACK' | translate}} </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-7 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <span [ngStyle]="{'margin-right':'0.3em', 'visibility':requestGuard ? 'hidden':'visible'}"  [ngClass]="{'fa fa-sm':true, 'fa-tasks':issue.status == 'IN_PROGRESS', 'fa-exclamation-triangle':issue.status == 'CONFIRMED', 'fa-check-square':issue.status == 'RESOLVED'}"></span>
+                    <span *ngIf="!requestGuard">{{issue?.bug_id}} ({{'DASHBOARD.'+issue?.issue | translate}} - {{issue?.value_desc}}) -- {{issue?.created_ago}}</span>
+                    <!-- <span  [ngClass]="{'fa':true, 'fa-lg fa-mobile':issue?.device_id == 'webapp', 'fa-sm fa-desktop':issue?.device_id != 'webapp'}"></span> -->
+                    <span style="flex:1"></span>
+                    <span  *ngIf="issue?.device_id != 'webapp'" class="fa fa-lg fa-mobile" matTooltip="{{'DASHBOARD.FROM_MOBILE' | translate}}" [ngStyle]="{'visibility':requestGuard ? 'hidden':'visible'}"></span>
+                    <span  *ngIf="issue?.device_id == 'webapp'" class="fa fa-sm fa-desktop" matTooltip="{{'DASHBOARD.FROM_DESKTOP' | translate}}" [ngStyle]="{'visibility':requestGuard ? 'hidden':'visible'}"></span>
+                </h5>
+                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                <div id="displayIssue" *ngIf="!enableAdmin" class="table-responsive">
+                    <table class="table table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>{{'DASHBOARD.ASSIGNED_DEPARTMENT' | translate}}</td>
+                                <td><strong>{{issue?.bug_component}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{'DASHBOARD.STATE' | translate}}</td>
+                                <td><strong *ngIf="!requestGuard">{{'DASHBOARD.STATE_STATUS.'+issue?.status | uppercase | translate}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{'DASHBOARD.REPORTED' | translate}}</td>
+                                <td><strong>{{issue?.create_at | date: 'EEEE, d MMM y, HH:mm'}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{'DASHBOARD.PRIORITY' | translate}}</td>
+                                <td><strong *ngIf="!requestGuard">{{'DASHBOARD.PRIORITY_STATUS.'+issue?.bug_priority | uppercase | translate}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{'DASHBOARD.SEVERITY' | translate}}</td>
+                                <td><strong *ngIf="!requestGuard">{{'DASHBOARD.SEVERITY_STATUS.'+issue?.bug_severity | uppercase | translate}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{'DASHBOARD.FULL_NAME' | translate}}</td>
+                                <td><strong>{{issue?.name}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{'SIGNUP.TEL' | translate}}</td>
+                                <td><strong>{{issue?.phone}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><strong>{{issue?.email}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{'SIGNUP.ADDRESS' | translate}}</td>
+                                <td><strong>{{issue?.bug_address}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="align-top">{{'DASHBOARD.CC_LIST' | translate}}</td>
+                                <td>
+                                    <div *ngFor="let interested of cc_list">
+                                        <strong *ngIf="!requestGuard" matTooltip="{{interested.mail}}&#013;&#010;{{interested.mobile}}" [matTooltipClass]="{'example-tooltip-host':true}" style="cursor:pointer">{{interested.name}}</strong>
+                                        <!-- <strong (click)="tooltip.show()" style="cursor:pointer">{{interested.mail}}</strong> -->
+                                        <!-- <div  #tooltip="matTooltip" matTooltip="{{interested.name}}&#013;&#010;{{interested.mobile}}" [matTooltipClass]="{'example-tooltip-host':true}"></div> -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button mat-button  class="btn-light" (click)="enableAdmin=true"  *ngIf = '!adminGuard' style="color:#fff; background-color: #f0ad4e;  border-color: #eea236;"><i class="material-icons" style="font-size: 1.4rem; margin-right:0.2rem">settings</i><span>{{'DASHBOARD.ADMINISTRATION' | translate}}</span></button>
+                </div>
+
+                <div id="adminIssue" *ngIf="enableAdmin">
+                    <form [formGroup]="issueAdminForm">
+                        <div class="table-responsive-lg">
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>{{'DASHBOARD.STATE' | translate}}</td>
+                                        <td>
+                                            <div class="row">
+                                                <div [ngClass]="{'col-6':issueAdminForm.controls.status.value == 'RESOLVED', 'col-12':issueAdminForm.controls.status.value != 'RESOLVED'}">
+                                                    <mat-select formControlName="status" class="bs3-form-control" (change)="checkStatusValue($event)">
+                                                        <mat-select-trigger>
+                                                            {{'DASHBOARD.STATE_STATUS.'+issueAdminForm.controls.status.value | uppercase | translate}}
+                                                        </mat-select-trigger>
+                                                        <div *ngIf = "issue.status != 'RESOLVED'">
+                                                            <mat-option *ngFor="let status of statusList" [value]="status" style="font-size:14px">{{('DASHBOARD.STATE_STATUS.'+status) | uppercase | translate}}</mat-option>
+                                                        </div>
+                                                        <div *ngIf = "issue.status == 'RESOLVED'">
+                                                            <mat-option *ngFor="let status of ['CONFIRMED', 'RESOLVED']" [value]="status" style="font-size:14px">{{('DASHBOARD.STATE_STATUS.'+status) | uppercase | translate}}</mat-option>
+                                                        </div>
+
+                                                    </mat-select>
+                                                </div>
+                                                <div class="col-6">
+                                                    <mat-select formControlName="resolution" class="bs3-form-control" *ngIf="issueAdminForm.controls.status.value == 'RESOLVED'">
+                                                        <mat-select-trigger>
+                                                            {{'DASHBOARD.RESOLVED_STATUS.'+issueAdminForm.controls.resolution.value | uppercase | translate}}
+                                                        </mat-select-trigger>
+                                                        <mat-option *ngFor="let status of resolvedStatusList" [value]="status" style="font-size:14px">{{('DASHBOARD.RESOLVED_STATUS.'+status) | uppercase | translate}}</mat-option>
+                                                    </mat-select>
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="issueAdminForm.controls.resolution.value == 'DUPLICATE'">
+                                        <td>{{'DASHBOARD.DUPLICATE_ISSUE' | translate}}</td>
+                                        <td><input  class="bs3-form-control" formControlName="duplicate"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'DASHBOARD.ASSIGNED_TO' | translate}}</td>
+                                        <td>
+                                            <mat-select formControlName="assignee" class="bs3-form-control">
+                                                <mat-select-trigger>
+                                                    {{issueAdminForm.controls.assignee.value}}
+                                                </mat-select-trigger>
+                                                <mat-option *ngFor="let department of departments" [value]="department.component_name" style="font-size:14px">{{department.component_name}}</mat-option>
+                                            </mat-select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'DASHBOARD.PRIORITY' | translate}}</td>
+                                        <td>
+                                            <mat-select formControlName="priority" class="bs3-form-control">
+                                                <mat-select-trigger>
+                                                    {{'DASHBOARD.PRIORITY_STATUS.'+issueAdminForm.controls.priority.value | uppercase | translate}}
+                                                </mat-select-trigger>
+                                                <mat-option *ngFor="let status of priorityStatusList" [value]="status" style="font-size:14px">{{('DASHBOARD.PRIORITY_STATUS.'+status) | uppercase | translate}}</mat-option>
+                                            </mat-select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'DASHBOARD.SEVERITY' | translate}}</td>
+                                        <td>
+                                            <mat-select formControlName="severity" class="bs3-form-control">
+                                                <mat-select-trigger>
+                                                    {{'DASHBOARD.SEVERITY_STATUS.'+issueAdminForm.controls.severity.value | uppercase | translate}}
+                                                </mat-select-trigger>
+                                                <mat-option *ngFor="let status of severityStatusList" [value]="status" style="font-size:14px">{{('DASHBOARD.SEVERITY_STATUS.'+status) | uppercase | translate}}</mat-option>
+                                            </mat-select>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'SIGNUP.ADDRESS' | translate}}</td>
+                                        <td><input  class="bs3-form-control" formControlName="address"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-top">{{'DASHBOARD.COMMENTS' | translate}}</td>
+                                        <td>
+                                             <textarea class="bs3-form-control" rows="3" formControlName="comments"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'DASHBOARD.FILES' | translate}}</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <label for="inputGroupFile01" class="input-group-text" style="padding: 5px 12px; font-size:inherit">{{'DASHBOARD.BROWSE' | translate}}
+                                                        <input type="file" multiple class="custom-file-input" id="inputGroupFile01" (change)="fileUploadHandler($event.target.files)" style="display:none">
+                                                    </label>
+                                                </div>
+                                                <div class="bs3-form-control flex-input-group">
+                                                    <span *ngIf="fileNamesArray.length == 1">{{fileNamesArray[0]}}</span>
+                                                    <span *ngIf="fileNamesArray.length > 1" matTooltip="{{fileNamesArray.join('&#013;&#010;')}}" [matTooltipClass]="{'example-tooltip-host':true}">{{fileNamesArray.length}} {{'DASHBOARD.FILES' | translate | lowercase}}</span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text bs3-form-control" id="btnGroupAddon" style="padding: 5px 10px; box-shadow:none; font-size:14px">{{'DASHBOARD.BROWSE' | translate}}
+                                                        <input type="file"  multiple style="display: none;">
+                                                    </div>
+                                                </div>
+                                                <input class="bs3-form-control flex-input-group" multiple placeholder="{{ 'FILTER' | translate }}..." (input)="onFilterTextBoxChanged()" style=";">
+                                            </div> -->
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </form>
+                    <button mat-button (click)="submitAdmin()" class="btn-light success_btn" [disabled] = 'requestGuard'><i class="material-icons" style="font-size: 1.4rem; margin-right:0.2rem">check</i><span>{{'SUBMIT' | translate}}</span></button>
+                    <button mat-button (click)="resetAdmin()" class="btn-light danger_btn" ><i class="material-icons" style="font-size: 1.4rem; margin-right:0.2rem">clear</i><span>{{'CANCEL' | translate}}</span></button>
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="card" *ngIf="IBMwatson">
+            <div class="card-header-bootstrap flex-box-center">
+                <img src="assets/ibm-watson-logo.png" class="mat-elevation-z2" style="margin-right:1em"/>
+                <h5>{{ 'DASHBOARD.IBM_WATSON_DESC' | translate }}</h5>
+            </div>
+            <div class="card-body" *ngIf = 'IBMwatsonSuggestions.length > 0' >
+                <div style="display:flex">
+                    <ul class="list-tags">
+                        <li *ngFor = "let suggestion of IBMwatsonSuggestions">
+                            <i class='fa fa-eye icon-margin'></i><span>{{suggestion.class}}</span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="flex-box-center" style="margin-top:1em">
+                    <button mat-raised-button color="primary" *ngIf = "IBMwatsonSuggDep == 'green'">Προώθηση στο Τμήμα Πρασίνου</button>
+                    <button mat-raised-button color="primary" *ngIf = "IBMwatsonSuggDep == 'road'">Προώθηση στο Τμήμα Ελέγχου Κοινοχρήστων Χώρων</button>
+                    <button mat-raised-button color="primary" *ngIf = "IBMwatsonSuggDep == 'light'">Προώθηση στο Τμήμα Ηλεκτροφωτισμού</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin: 3rem 0 1rem 0; background: #f8f9fa">
+            <!-- <div class="card-body"> -->
+            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            <div class="card-header text-center">
+                <h5>{{'DASHBOARD.HISTORY' | translate}}</h5>
+            </div>
+            <!-- </div> -->
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let progress of history; index as index; last as last" style="background:#f8f9fa">
+                    <div class="row">
+                        <div class="col-1">
+                            <span  [ngClass]="{'fa fa-sm':true, 'fa-feed':progress.state == 'NEW_USER_SUBSCRIBED', 'fa-commenting-o':progress.state == 'USER_COMMENTED', 'fa-file-o':progress.state == 'USER_UPLOADED_FILES', 'fa-tasks':progress.state == 'IN_PROGRESS', 'fa-exclamation-triangle':progress.state == 'CONFIRMED', 'fa-check-square':progress.state == 'RESOLVED'}"></span>
+                        </div>
+                        <div class="col-11">
+                            <p class="card-text">{{'DASHBOARD.STATE' | translate}}: {{'DASHBOARD.STATE_STATUS.' + progress.state | translate}}
+                                <span *ngIf="last && issue.resolution">({{'DASHBOARD.RESOLVED_STATUS.' + issue.resolution | translate}})</span>
+                                <span *ngIf="progress.state=='NEW_USER_SUBSCRIBED'||'USER_COMMENTED'||'USER_UPLOADED_FILES'">{{progress.name}}</span>
+                            </p>
+                            <p class="card-text">{{'DASHBOARD.REPORTED' | translate}}: {{progress.timestamp | date: 'EEEE, d MMM y, HH:mm'}} </p>
+                            <p class="card-text" *ngIf="index == 0">{{progress.department}}</p>
+                            <p class="card-text" *ngIf="last && progress.state=='RESOLVED'">{{progress.department}}</p>
+                            <p class="card-text" *ngIf="progress.state=='IN_PROGRESS' && index > 0">{{'FROM' | translate}}: {{history[index-1].department}}</p>
+                            <p class="card-text" *ngIf="progress.state=='IN_PROGRESS' && index > 0">{{'ΤΟ' | translate}}: {{progress.department}}</p>
+                            <p *ngIf="!last && progress.text != 'undefined'">{{progress.text}}</p>
+                            <p *ngIf="last && progress.text != 'undefined' && issue.resolution != 'DUPLICATE'">{{progress.text}}</p>
+                            <p *ngIf="last && issue.resolution == 'DUPLICATE'">{{'DASHBOARD.DUPLICATE_ISSUE_REPORTED' | translate}} #{{progress.text}}</p>
+                            <div *ngIf="progress.fileURLSs != []">
+                                <div *ngFor="let fileURL of progress.fileURLs; index as fileIndex;" style="height: 4rem; width: 4rem; float: left; margin-right: 0.5rem;">
+                                    <a *ngIf="progress.file_types[fileIndex] === 'application'" href="{{fileURL}}" class="file-thumb-wrapper fa fa-file-o"></a>
+                                    <a *ngIf="progress.file_types[fileIndex] === 'image'" href="{{fileURL}}" class="file-thumb-wrapper">
+                                        <img  class="img-responsive img-text" src="{{fileURL}}&thumb=1" alt="image" style="max-width:100%; max-height:100%">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-5 col-md-12">
+        <div class="card">
+            <!-- <div class="card-body"> -->
+                <div class="map-utilities">
+                    <div class="input-group" style='padding:0.5em'>
+                        <input class="bs3-form-control flex-input-group-append" #addressSearchInput placeholder="{{'SIGNUP.ADDRESS' | translate}}" aria-describedby="enter address">
+                        <div class="input-group-append">
+                            <button mat-button class="btn-light" (click)="searchAddress(addressSearchInput.value)" style="background-color: #e0e0e0;">{{'SEARCH' | translate}} </button>
+                        </div>
+                    </div>
+                    <div style='padding:0.5em' *ngIf="!requestGuard" class="map-actions">
+                        <mat-button-toggle-group style="background-color: #fff" [ngModel]="activeMap" (ngModelChange)="onMapSelection($event)">
+                            <mat-button-toggle value="leaflet" matTooltip="{{ 'DASHBOARD.ISSUE_MAP'| translate}}"><i class="fa fa-map color_blue"></i></mat-button-toggle>
+                            <mat-button-toggle value="google" matTooltip="Street View"><i class="fa fa-street-view color_blue"></i></mat-button-toggle>
+                        </mat-button-toggle-group>
+
+                    </div>
+                </div>
+                <div #gmap1 [ngStyle]="{'min-height':'500px', 'height':'40vh', 'display': activeMap == 'google' ? 'block' : 'none'}">
+                </div>
+
+                <div [ngStyle]="{'min-height':'500px', 'height':'40vh', 'display': activeMap == 'leaflet' ? 'block' : 'none'}"
+                leaflet
+                (leafletMapReady)="onMapReady($event)"
+                (leafletMarkerClusterReady)="markerClusterReady($event)"
+                [leafletOptions]="mapInit"
+                [leafletMarkerCluster]="markerClusterData"
+                [leafletMarkerClusterOptions]="markerClusterOptions"
+                [leafletZoom]="issueZoom"
+                [leafletCenter]="issueCenter"
+                [leafletLayers]="mapLayers"
+                [leafletLayersControl]="layersControl">
+                </div>
+            <!-- </div> -->
+        </div>
+        <div class="card" style="margin: 2rem 0 1rem 0;">
+            <div class="card-body flex-box-center">
+                <a>
+                    <!-- <img *ngIf="!imageBroken" src="{{this.imageFetchURL}}&resolution=medium" (error)="imageLoadError()" style="max-width:100%"/> -->
+                    <img *ngIf="!imageBroken" [src]="issueImage[0].thumb" (click)="openLightbox()" (error)="imageLoadError()" (load)="imageLoaded()" style="max-width:100%"/>
+
+                </a>
+                <i *ngIf="imageBroken" class="{{issueIcon}}" style="font-size:10rem"></i>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

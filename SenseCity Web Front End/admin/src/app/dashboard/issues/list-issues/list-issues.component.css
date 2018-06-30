@@ -1,0 +1,76 @@
+
+.fa-exclamation-triangle {
+    color:red
+}
+
+.fa-tasks {
+    color:orange
+}
+
+.fa-check-square {
+    color:green
+}
+
+.card {
+    margin: 5px 0px;
+}
+
+.card-body {
+    padding: 10px;
+    cursor:pointer;
+    display: flex
+}
+
+.cursor-auto {
+    cursor: auto;
+}
+
+.card-body:hover {
+    background: #eee;
+}
+
+.issue-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.issue-info {
+    font-size: 15.5px;
+    line-height: 20px
+}
+
+.address-info {
+    opacity: .85;
+    font-size: 13px;
+}
+
+.results_btn{
+    color:#3c4858 !important;
+    padding: 0.35rem 0.63rem;
+}
+
+.refresh_btn_container {
+    display:flex;
+    align-items:center; /* vertically aligned! */
+    justify-content: center;
+}
+
+.mat-button-toggle-checked .color_blue {
+    color:cornflowerblue;
+}
+
+.mat-button-toggle-checked .color_green {
+    color:forestgreen;
+}
+
+.mat-button-toggle-checked .color_orange {
+    color:orange;
+}
+
+.flex-input-group-append {
+    flex:1 0 auto;
+    width:auto;
+    margin-right:0.6em;
+    height: 36px;
+}

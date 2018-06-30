@@ -1,0 +1,138 @@
+.fa-exclamation-triangle {
+    color:red
+}
+
+.fa-tasks {
+    color:orange
+}
+
+.fa-check-square {
+    color:green
+}
+
+.fa-commenting-o, .fa-file-o {
+    color: rgb(8, 111, 135)
+}
+
+.fa-feed {
+    color: rgb(98, 8, 135)
+}
+
+.card {
+    margin-bottom: 0;
+}
+.card-header  {
+    background:#3c4858;
+    color:white
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+}
+.card-text {
+    color:inherit;
+}
+
+h5 {
+    margin-bottom:0
+}
+
+.list-group-item {
+    background: #f8f9fa
+}
+
+.file-thumb-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    font-size: 3rem;
+    width:100%;
+    min-width:100%;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.16), 0 0px 3px 0 rgba(0, 0, 0, 0.12);
+    border: 2px solid #FFF;
+    background-color: #ffffff;
+}
+
+.flex-box-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+textarea {
+    height:inherit;
+    min-height: 34px;
+    max-height: 170px;
+}
+
+.mat-button-toggle-checked .color_blue {
+    color:cornflowerblue;
+}
+
+.flex-input-group {
+    flex:1 0 auto;
+    width:auto;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px
+}
+
+.flex-input-group-append {
+    flex:1 0 auto;
+    width:auto;
+    margin-right:0.6em;
+    height: 36px;
+}
+
+.card-header-bootstrap {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+
+.list-tags {
+    /* float: left; */
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-tags li {
+    display: block;
+    float: left;
+    background: #F5F5F5;
+    border: 1px solid #D5D5D5;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    line-height: 23px;
+    font-size: 13px;
+    margin: 2px 5px 2px 0px;
+    padding: 0px 8px;
+    color: #22262e;
+}
+
+.map-utilities {
+    display: flex;
+}
+
+.map-actions {
+    justify-content: flex-end;
+    align-items: center;
+    display:flex
+}
+
+@media screen and (max-width: 1200px) {
+    .map-utilities {
+        display: block;
+    }
+}

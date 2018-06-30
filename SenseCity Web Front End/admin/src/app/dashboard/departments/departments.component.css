@@ -1,0 +1,14 @@
+.icon-add{
+    float:right;
+    background-color: #fff;
+    color: #3c4858;
+    font-size: 1.1em;
+    margin: 10px 5px;
+}
+
+.icon-text{
+    font-family: "Open Sans";
+    font-size: 1em;
+    margin-left: 5px;
+    font-weight: bold;
+}

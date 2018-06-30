@@ -1,0 +1,19 @@
+{
+    "API": "https://apitest.sense.city:4443/api/1.0",
+    "API_HOST":"https://apitest.sense.city:4443",
+    "TEMP_STATISTICS":"/admin/statistics/statistics.html?user=1",
+    "GOOGLE_KEY":"AIzaSyCHBdH6Zw1z3H6NOmAaTIG2TwIPTXUhnvM",
+    "TWITTER_WIDGET_IDS":{
+        "testcity1":"841271929285820416",
+        "patras":"841271929285820416",
+        "pyrgos":"885852348802891781",
+        "zakynthos":"847438097692237826"
+    },
+    "CITY_CENTERS":{
+        "testcity1":{"lat": 38.254028, "lng": 21.7583104, "zoom": 12},
+        "testpireas":{"lat": 37.94000817881064, "lng": 23.64594922128792, "zoom":14},
+        "patras":{"lat": 38.254028, "lng": 21.7583104, "zoom": 12},
+        "pyrgos":{"lat": 37.673045, "lng": 21.440371, "zoom": 12},
+        "zakynthos":{"lat": 37.7802200, "lng": 20.8955500, "zoom": 12}
+    }
+}

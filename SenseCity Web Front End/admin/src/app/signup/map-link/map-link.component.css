@@ -1,0 +1,14 @@
+form {
+    margin-top:10px;
+}
+.row {
+    padding-top:10px;
+}
+
+.suffix {
+    text-align: center;
+    background-color: #eee;
+    /* border: 1px solid #ccc; */
+    border-radius: 4px;
+    padding: 5px 20px;
+}

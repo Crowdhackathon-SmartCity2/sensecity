@@ -1,0 +1,56 @@
+<form class="example-form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+    <div class="row" style="padding-top:10px">
+        <div class="col-md-10 offset-md-1">
+            <mat-expansion-panel [expanded]="true" hideToggle="true">
+                <div class="row">
+                    <div class="col-md-12 text-justify">
+                        <h6>{{'SIGNUP.CREATING_ACC_INFO' | translate}}</h6>
+                    </div>
+                </div>
+                <div class="row justify-content-sm-center">
+                    <div class="col-sm-10 body">
+                        <i class="fa fa-user-circle prefix"></i>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="{{'USERNAME'| translate}}" formControlName="username" (blur)="checkUsernameExists(accountForm.controls.username.value)"/>
+                            <mat-error *ngIf="accountForm.controls.username.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                            <mat-error *ngIf="accountForm.controls.username.hasError('usernameExists')" [innerHTML]="'SIGNUP.USERNAME_EXISTS_ERR' | translate"></mat-error>
+                        </mat-form-field>
+                        <div formGroupName="passwordForm">
+                            <i class="fa fa-lock prefix" style="padding:0 0.2em"></i>
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="password" placeholder="{{'PASSWORD'| translate}}" formControlName="pw1"/>
+                                <mat-error *ngIf="accountForm.get('passwordForm').get('pw1').hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                            </mat-form-field>
+
+                            <i class="fa fa-lock prefix" style="padding:0 0.2em"></i>
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="password" placeholder="{{'CONFIRM_PASS'| translate}}" formControlName="pw2"/>
+                                <mat-error *ngIf="accountForm.get('passwordForm').get('pw2').hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                                <mat-error *ngIf="accountForm.get('passwordForm').get('pw2').hasError('noMatchingPassword')" [innerHTML]="'MATCHING_PASS_ERR' | translate"></mat-error>
+                            </mat-form-field>
+                            <mat-error *ngIf="accountForm.get('passwordForm').get('pw2').value &&
+                            accountForm.get('passwordForm').hasError('noMatchingPassword')" [innerHTML]="'MATCHING_PASS_ERR' | translate">
+                            </mat-error>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-justify">
+                        <h6>{{'SIGNUP.CHOOSING_MAIN_DEPARTMENT' | translate}}</h6>
+                    </div>
+                </div>
+                <div class="row justify-content-sm-center">
+                    <div class="col-sm-10 body">
+                        <i class="fa fa-building prefix"></i>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="{{'GRID.DEP_NAME'| translate}}" formControlName="department"/>
+                            <mat-error *ngIf="accountForm.controls.department.hasError('required')" [innerHTML]="'REQ_ERR' | translate"></mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+            </mat-expansion-panel>
+        </div>
+    </div>
+</form>
