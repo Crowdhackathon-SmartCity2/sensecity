@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  sensecity:
+    image: 'sensecitydh/sensecity:crowdhack2.0.3'
+    ports:
+      - '80:80'
+      - '443:443'
+
