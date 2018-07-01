@@ -92,11 +92,9 @@ A step by step series of actions that tell you how to get a production applicati
 
 Please contact us - [NAM group](http://nam.ece.upatras.gr/) - to get informed for the development process and workflow.
 
-## Authors
-* *Kostis Trantzas* - Initial work - [kostistr](https://github.com/kostistr)
-
-See also the list of [contributors](https://github.com/sensecitycode/sensecityweb-New/graphs/contributors) who participated in this project.
 
 ## License
+Copyright 2018 SenseCity
 
-This project is licensed under the Apache2 License
+This project is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License [here](http://www.apache.org/licenses/LICENSE-2.0)

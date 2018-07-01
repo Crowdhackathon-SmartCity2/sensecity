@@ -3,9 +3,9 @@
 
 Sensecity is an **API** that collect problem issues from a city about the Plumbing, Lighting, Roads , Cleanliness and the mood for people that live there.
 
-The purpose is to sent problems issues from people in real time through smart devices and other smart sencor.
+The purpose is to sent problems issues from people in real time through smart devices and other smart sensor.
 
-The data that we collect, until now is the avove problem issues, is open and everyone can get and processing them.
+The data that we collect, until now is the above problem issues, is open and everyone can get and processing them.
 
 ## Installing
 
@@ -24,7 +24,7 @@ Install dependencies
 ```
 API Endpoint : https://api.sense.city/api/1.0
 
-Results: The firt 1000 issues the last 3 days
+Results: The first 1000 issues the last 3 days
 ```
 
 ## Default API Endpoint
@@ -32,7 +32,7 @@ Results: The firt 1000 issues the last 3 days
 ```
 /issue
 
-Results: The firt 1000 issues the last 3 days
+Results: The first 1000 issues the last 3 days
 ```
 
 ## Variables:
@@ -50,7 +50,7 @@ Results: The firt 1000 issues the last 3 days
 | **includeAnonymous** | Integer (0,1)<br>*0:issue that is reported by verified users <br>*1:all issue(anonymous and verified users)  |  |  0 |
 | **city** | string (0,1)<br>*city name  |  |  no default value |
 | **departmants** | string <br>*with pipe(|) separate |  |  no deafault value |
-  
+
 ## Examples
 
 ```
@@ -62,7 +62,7 @@ Result : The last 20 garbage issues from 2016-03-22 to 2016-03-30 that reported 
 
 
 ## API Endpoint
-### Post Method 
+### Post Method
 ```
 /issue
 
@@ -71,20 +71,20 @@ Add a new issue report in sensecity platform
 
 ## Data
 
-{"loc" : { 
+{"loc" : {
         "type" : "Point",  
-        "coordinates" : ['+_lng+','+_lat+'] 
-    }, 
+        "coordinates" : ['+_lng+','+_lat+']
+    },
     "issue" : "string",
-    "device_id" : "string", 
-    "value_desc" : "string", 
+    "device_id" : "string",
+    "value_desc" : "string",
     "comments" : "text",
     "image_name" : "image base64",
     "mobile_num":"string",
-    "email_user":"string" 
+    "email_user":"string"
 }
 
-## Example (jQuery) 
+## Example (jQuery)
 
 ...
 
@@ -123,17 +123,22 @@ https://api.sense.city/api/1.0/image_issue?bug_id=4488&resolution=small
 Result : Return the small image from the issue with bud id '4488'
 ```
 
-## Example (jQuery) 
+## Example (jQuery)
 ```
 $.ajax({
 		crossDomain: true,
 		type:"GET",
 		url: "https://api.sense.city/api/1.0/image_issue?bug_id=4488&resolution=small",
 		contentType: "application/json; charset=utf-8",                                				
-		success: function(msg){	
+		success: function(msg){
             //YOUR CODE HERE
         }
 });
+
+
 ```
+## License
+Copyright 2018 SenseCity
 
-
+This project is licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License [here](http://www.apache.org/licenses/LICENSE-2.0)
