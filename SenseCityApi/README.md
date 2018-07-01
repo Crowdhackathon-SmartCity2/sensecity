@@ -1,5 +1,5 @@
 
-## sense.city API
+## SenseCity API
 
 Sensecity is an **API** that collect problem issues from a city about the Plumbing, Lighting, Roads , Cleanliness and the mood for people that live there.
 
