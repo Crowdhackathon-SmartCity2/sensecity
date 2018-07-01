@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html>
+    <!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="icon-fonts/elusive-icons-2.0.0/css/elusive-icons.css">
+        <link rel="stylesheet" type="text/css" href="media_button_bar/css/media_button_bar.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+        <meta charset="UTF-8">
+        <title>Blank App Designer Cordova Web App Project Template</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-eval' data: blob: filesystem: ws: gap://ready file: cdvfile: https://ssl.gstatic.com *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; img-src * data: 'unsafe-inline'; connect-src * 'unsafe-inline'; child-src *; ">
+
+        <!--
+          * The "meta viewport" tag (below) helps your app size appropriately to a device's ideal viewport.
+          * Note that Windows device viewports work better when initialized using the @viewport CSS rule.
+          * For a quick overview of "meta viewport" and @viewport, see this article:
+          *   http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag
+          * To see how it works, try your app on a real device with and without a "meta viewport" tag.
+          * Additional useful references include:
+          *   http://www.quirksmode.org/mobile/viewports.html
+          *   http://www.quirksmode.org/mobile/metaviewport/devices.html
+          *   https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+        -->
+
+        <!-- <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1"> -->
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=2"> -->
+
+        <style>
+            /* following three (cascaded) are equivalent to above three meta viewport statements */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html */
+            /* see http://dev.w3.org/csswg/css-device-adapt/ */
+                @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }          @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+                @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }                   @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+                /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+        </style>
+
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="css/index_main.less.css" class="main-less">
+        <link rel="stylesheet" type="text/css" href="css/my_style.css">
+
+        <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
+        <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->
+        <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+        <!-- Recommended location for your JavaScript libraries -->
+        <!-- These library references (below) are just examples to give you the general idea... -->
+        <!-- <script src="lib/mc/hammer.js"></script> -->
+        <!-- <script src="lib/ft/fastclick.js"></script> -->
+
+        <!--
+  * cordova.js is a phantom lib for "Cordova HTML5 web app," it does nothing in a "Standard HTML5 web app"
+  * Seeing a "Failed to load resource: net::ERR_FILE_NOT_FOUND" message caused by this "cordova.js" script?
+  * The cordova.js script is required if you convert your "Standard HTML5" project into a "Cordova" project.
+  * You can safely ignore the error or comment out this line if you will not be developing a Cordova app.
+-->
+        <script src="cordova.js" id="xdkJScordova_"></script>
+
+        <script src="js/app.js"></script>
+        <!-- for your event code, see README and file comments for details -->
+        <script src="js/init-app.js"></script>
+        <!-- for your init code, see README and file comments for details -->
+        <script src="xdk/init-dev.js"></script>
+        <!-- normalizes device and document ready events, see file for details -->
+        <script type="application/javascript" src="lib/jquery.min.js"></script>
+        <script type="application/javascript" src="marginal/marginal-position.min.js"></script>
+        <script type="application/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+        <script type="application/javascript" src="xdk/ad/bs_subpage.js"></script>
+        <script type="application/javascript" src="sidebar/js/hammer.js"></script>
+        <script type="application/javascript" src="sidebar/js/jquery.hammer.js"></script>
+        <script type="application/javascript" src="sidebar/js/swipe-hammer.js"></script>
+        <script type="application/javascript" src="sidebar/js/sidebar.js"></script>
+
+        <script src="bower_components/leaflet/dist/leaflet.js"></script>
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+        <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js?2"></script>
+
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+
+        <link rel="stylesheet" href="css/map/leaflet.awesome-markers.css">
+        <link rel="stylesheet" href="css/map/leaflet.css">
+
+        <script src="js/map/leaflet.js"></script>
+        <script src="js/map/leaflet.awesome-markers.js"></script>
+
+        <link rel="stylesheet" href="css/map/leaflet.css">
+        <link rel="stylesheet" href="css/map/leaflet.awesome-markers.css">
+        <script src="js/map/leaflet.js"></script>
+        <script src="js/map/leaflet.awesome-markers.js"></script>
+
+        <!-- <script src="js/map/OpenLayers.js"></script> -->
+
+        <script type="application/javascript" src="js/index_user_scripts.js"></script>
+        <script type="application/javascript" src="js/language.js"></script>
+    </head>
+
+    <body>
+        <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
+        <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above -->
+        <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+        <div class="upage" id="mainpage">
+            <div class="upage-outer">
+                <div class="uib-header header-bg container-group inner-element uib_w_1" data-uib="layout/header" data-ver="0">
+                    <h2></h2>
+                    <div class="widget-container wrapping-col single-centered">
+                        <img src="img/app_background_header.png" width="105px">
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col left">
+                        <button class="btn widget uib_w_38 d-margins btn-lg btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" onclick="exit_app()"><i class="glyphicon glyphicon-align-justify" data-position="icon only"></i>
+                        </button>
+
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col right">
+
+                    </div>
+                </div>
+
+                <div class="upage-content ac0 content-area vertical-col" id="page_78_74" style="">
+                    <button class="btn widget uib_w_3 d-margins btn_text_left_align btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" style="" id="btn_garbage">Καθαριότητα<span id="desc_garbage">Επιλογή προβλήματος που αφορά την καθαριότητα.</span>
+                    </button>
+                    <br>
+                    <button class="btn widget uib_w_4 d-margins btn_text_left_align btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" style="" id="btn_light">Ηλεκτροφωτισμός<span id="desc_lighting">Επιλογή προβλήματος που αφορά τον Φωτισμό.</span>
+                    </button>
+                    <br>
+                    <button class="btn widget uib_w_6 d-margins btn-default btn_text_left_align" data-uib="twitter%20bootstrap/button" data-ver="1" style="" id="btn_road_construction">Πεζοδρόμιο / Δρόμος / Πλατεία<span id="desc_road_construction">Επιλογή προβλήματος που αφορά τo Πεζοδρόμιο/Οδόστρωμα.</span>
+                    </button>
+                    <br>
+                    <button class="btn widget uib_w_103 d-margins btn_text_left_align btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_protection_policy">Πολιτική Προστασία<span id="desc_policy_protection">Επιλογή προβλήματος που αφορά την Πολιτική Προστασία</span>
+                    </button>
+                    <br>
+                    <button class="btn widget uib_w_104 d-margins btn-default btn_text_left_align" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_green">Πράσινο<span id="desc_green">Επιλογή προβλήματος που αφορά το Πράσινο</span>
+                    </button>
+                    <br>
+                    <button class="btn widget uib_w_132 d-margins btn_text_left_align btn-lg btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_environmental_issues">Περιβαλλοντικά θέματα<span id="desc_enviroment">Επιλογή προβλήματος που αφορά το Περιβάλλον</span>
+                    </button>
+                    <br>
+                    <button class="btn widget uib_w_5 d-margins btn-default btn_text_left_align" data-uib="twitter%20bootstrap/button" data-ver="1" style="" id="btn_plumping">Ύδρευση / Αποχέτευση<span id="desc_plumping">Επιλογή προβλήματος που αφορά την Ύδρευση/Αποχέτευση.</span>
+                    </button>
+
+                    <div class="tarea widget uib_w_56 d-margins" data-uib="media/text" data-ver="0" name="uib_w_56">
+                        <div class="widget-container left-receptacle"></div>
+                        <div class="widget-container right-receptacle"></div>
+                        <div class="text-container">
+                            <p style="margin-top:5px; text-align:justify; padding:5px;" id="msg_society_fellings">Εκφράστε την διάθεσή σας στην περιοχή που βρίσκεστε:</p>
+                        </div>
+                    </div>
+                    <div class="btn-group uib-bs-flex widget uib_w_7 d-margins" data-uib="twitter%20bootstrap/button_group" data-ver="1">
+                        <button class="btn widget uib_w_8 btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_angry"></button>
+                        <button class="btn widget uib_w_9 btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_neutral"></button>
+                        <button class="btn widget uib_w_10 btn-lg btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_happy"></button>
+                    </div>
+                    <button class="btn widget uib_w_221 d-margins btn-lg btn-warning" data-uib="twitter%20bootstrap/button" data-ver="1" id="btnWarnNeighbor"><i class="el el-myspace button-icon-left" data-position="left"></i>&nbsp;&nbsp;&nbsp;Ειδοποιήσεις της Γειτονιάς μου</button>
+                </div>
+
+                <div class="inner-element uib_w_39 uib_sidebar leftbar bar-bg thumb-bg bar-gutter swipe fixed" data-uib="layout/left_sidebar" data-ver="1" data-anim="{'style':'push', 'v':200, 'side':'left'}" id="my_left_sidebar">
+
+                    <div class="sidebar-content content-area vertical-col">
+                        <div class="grid urow uib_row_5" data-uib="layout/row" data-ver="0">
+                            <div class="col uib_col_7 col-0_4-12_4-4" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area vertical-col">
+
+                                    <button class="btn widget uib_w_44 d-margins btn-lg btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_close_sidebar" onclick="close_sidebar()"><i class="glyphicon glyphicon-remove" data-position="icon only"></i>
+                                    </button><span class="uib_shim"></span>
+                                </div>
+                            </div>
+                            <div class="col uib_col_6 col-0_4-12_4-8" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area center-h-v-col">
+                                    <span class="uib_shim"></span>
+                                </div>
+                            </div>
+                            <div class="col uib_col_8 col-0_4-12_4-8" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area vertical-col">
+                                    <span class="uib_shim"></span>
+                                </div>
+                            </div>
+
+                            <span class="uib_shim"></span>
+                        </div>
+
+                        <button class="btn widget uib_w_147 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_home_page"><i class="glyphicon glyphicon-home button-icon-left" data-position="left"></i>Αρχική</button>
+                        <button class="btn widget uib_w_205 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_my_issues"><i class="glyphicon glyphicon-warning-sign button-icon-left" data-position="left"></i>Τα αιτήματα μου</button>
+                        <button class="btn widget uib_w_205 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_about_us"><i class="glyphicon glyphicon-info-sign button-icon-left" data-position="left"></i>Σχετικά</button>
+                        <button class="btn widget uib_w_42 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_map"><i class="glyphicon glyphicon-map-marker button-icon-left" data-position="left"></i>Χάρτης</button>
+                        <button class="btn widget uib_w_133 d-margins btn-lg btn-warning" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_policy"><i class="fa fa-warning button-icon-left" data-position="left"></i>Πολιτική</button>
+                        <button class="btn widget uib_w_214 d-margins btn-lg btn-warning" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_setting"><i class="glyphicon glyphicon-cog button-icon-left" data-position="left"></i>Ρυθμίσεις</button>
+                        <button class="btn widget uib_w_214 d-margins btn-lg btn-warning" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_neighbor"><i class="glyphicon glyphicon-cog button-icon-left" data-position="left"></i>Οι Γειτονιά μου</button>
+                        <button class="btn widget uib_w_138 d-margins btn_send_report_sensecity btn-lg btn-warning" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_send_report_sensecity"><i class="glyphicon glyphicon-envelope button-icon-left" data-position="left"></i>Αναφορά προς SenseCity</button>
+
+                    </div>
+                </div>
+                <div id="uib_page_map" class="upage-content hidden vertical-col">
+
+                    <div id="map" style="color: black; height:92vh;"></div>
+
+                </div>
+                <div id="uib_sub_privacy" class="upage-content vertical-col left hidden">
+                    <div class="grid grid-pad urow uib_row_35 row-height-35" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_58 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="tarea widget uib_w_136 d-margins" data-uib="media/text" data-ver="0" name="uib_w_136">
+                                    <div class="widget-container left-receptacle"></div>
+                                    <div class="widget-container right-receptacle"></div>
+                                    <div class="text-container" id="policy_txt">
+                                        <p>Policy</p>
+                                    </div>
+                                </div>
+
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+                </div>
+                <div id="sub_page_sense_report" class="upage-content vertical-col left hidden">
+                    <div class="grid grid-pad urow uib_row_36 row-height-36" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_59 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="tarea widget uib_w_139 d-margins" data-uib="media/text" data-ver="0" name="uib_w_139">
+                                    <div class="widget-container left-receptacle"></div>
+                                    <div class="widget-container right-receptacle"></div>
+                                    <div class="text-container">
+                                        <p id="report_msg1">Αν θέλετε να αναφέρετε κάποιο πρόβλημα ή έχετε κάποια παρατήρηση για την εφαρμογή SenseCity συμπληρώστε την παρακάτω φόρμα και πατήστε «Αποστολή».</p>
+                                        <p style="color:red;" id="report_msg2">Για την αποστολή της αναφοράς πρέπει να έχετε πιστοποιήσει το email σας! Η πιστοποίηση γίνεται πηγαίνοντας στην ενότητα "Ρυθμίσεις"</p>
+                                    </div>
+                                </div>
+
+                                <div class="table-thing widget uib_w_141 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                    <label class="narrow-control"></label>
+                                    <input class="wide-control form-control default input-lg" type="text" id="mail_subject" placeholder="Θέμα">
+                                </div>
+                                <div class="table-thing widget uib_w_142 d-margins" data-uib="twitter%20bootstrap/text_area" data-ver="1">
+                                    <label class="narrow-control"></label>
+                                    <textarea rows="5" class="wide-control form-control" wrap="soft" id="mail_content" placeholder="Πληροφορίες"></textarea>
+                                </div>
+                                <div class="tarea widget uib_w_145 d-margins" data-uib="media/text" data-ver="0" name="uib_w_145">
+                                    <div class="widget-container left-receptacle"></div>
+                                    <div class="widget-container right-receptacle"></div>
+                                    <div class="text-container" id="send_mail_msg"></div>
+                                </div>
+
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+                    <div class="grid grid-pad urow uib_row_38 row-height-38" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_61 col-0_6-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <button class="btn widget uib_w_143 d-margins btn-lg btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_cancel_email">Επιστροφή</button>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <div class="col uib_col_62 col-0_6-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <button class="btn widget uib_w_144 d-margins btn-lg btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_send_mail">Αποστολή</button>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+
+                </div>
+                <!--
+                <div id="uib_garbage_map" class="upage-content vertical-col left hidden">
+                    <div id="geo_map" style="color: black; height:92vh;"></div>
+                </div>
+                -->
+                <div id="sub_page_about" class="upage-content vertical-col left hidden">
+                    <div class="grid grid-pad urow uib_row_57 row-height-57" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_91 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="tarea widget uib_w_213 d-margins" data-uib="media/text" data-ver="0" name="uib_w_213">
+                                    <div class="widget-container left-receptacle"></div>
+                                    <div class="widget-container right-receptacle"></div>
+                                    <div class="text-container">
+                                        <h3>Sense.City mobile application.</h3>
+
+                                        <p></p>
+                                        <center><strong>Version : 1.2.3</strong>
+                                        </center>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+                </div>
+                <div id="sub_page_settings" class="upage-content vertical-col left hidden">
+
+                    <div class="grid grid-pad urow uib_row_58 row-height-58" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_92 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col"><span class="widget uib_w_215 d-margins label label-info label_height" data-uib="twitter%20bootstrap/badge_and_label" data-ver="1" id="lbl_header_title">Language</span>
+                                <div class="grid grid-pad urow uib_row_59 row-height-59" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_93 col-1_2-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <fieldset class="widget uib_w_216 d-margins" data-uib="twitter%20bootstrap/radio_group" data-ver="1" data-child-name="bs-radio-group-0">
+                                                <label class="radio radio-padding-left widget uib_w_217" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                                    <input type="radio" name="bs-radio-group-0" id="btn_gr"><span id="lbl_btn_gr" style="padding-left: 24px; font-size: 16px; margin-top: 7px; position: absolute; width:200px;"><img src="img/if_Grecee_298418.png" style="width:30px;"> &nbsp;Ελληνικά</span>
+                                                </label>
+                                                <label class="radio radio-padding-left widget uib_w_218" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                                    <input type="radio" name="bs-radio-group-0" id="btn_en"> <span id="lbl_btn_en" style="padding-left: 24px; font-size: 16px; margin-top: 7px; position: absolute;    width:200px;"><img src="img/if_United-Kingdom_298478.png" style="width:30px;"> &nbsp;Αγγλικά</span>
+                                                </label>
+                                            </fieldset>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col uib_col_94 col-1_10-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+
+                                    <span class="uib_shim"></span>
+                                </div>
+
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+                    <div class="grid grid-pad urow uib_row_57 row-height-57" data-uib="layout/row" data-ver="0">
+
+                    </div>
+                </div>
+                <div id="sub_neighbor" class="upage-content vertical-col left hidden">
+
+                    <div class="grid grid-pad urow uib_row_60 row-height-60" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_95 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="tarea widget uib_w_219 d-margins" data-uib="media/text" data-ver="0" name="uib_w_219">
+                                    <div class="widget-container left-receptacle"></div>
+                                    <div class="widget-container right-receptacle"></div>
+                                    <div class="text-container">
+                                        <h3>Επιλογή Γειτονιάς</h3>
+
+                                        <p style="text-align:justify;">Επιλέξτε το σημείο της γειτονιάς σας καθώς την περίμετρο (μέτρα) που θέλετε να λαμβάνετε νέα</p>
+                                    </div>
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+                    <div class="grid grid-pad urow uib_row_58 row-height-58" data-uib="layout/row" data-ver="0">
+                        <div id="mapNeighbor" style="color: black; height:62vh;"></div>
+                    </div>
+                    <div class="grid grid-pad urow uib_row_58 row-height-58" data-uib="layout/row" data-ver="0">
+                        <div class="table-thing widget uib_w_220 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                            <label class="narrow-control label-inline">email</label>
+                            <input class="wide-control form-control default" type="text" placeholder="Δηλώστε email" id="txtEmail">
+                        </div>
+                    </div>
+                    <div class="grid grid-pad urow uib_row_58 row-height-58" data-uib="layout/row" data-ver="0">
+                        <button class="btn widget uib_w_59 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_send_neighbor">Αποστολή</button>
+                    </div>
+                </div>
+                <div id="myneighborWarnings" class="upage-content vertical-col left hidden">
+					<div class="panel widget panel-default uib_w_222" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<span>Προβλημα καθαριότητας (Σπασμένος Κάδος)</span>
+							</h4>
+							<div style="padding-top:5px;">
+								<span>Αγ. Ανδρέα 154</span>
+							</div>
+							<h5 style="float:right; margin-top:-25px;">
+								<a class="accordion-toggle recommentation_click" data-toggle="collapse" href="#bs-accordion-group1-'+i+'" data-parent="#bs-accordion-0" onclick=""><i style="font-size:24px;" class="fa fa-thumbs-o-up"></i></a>(2)&nbsp;<a class="accordion-toggle recommentation_click" data-toggle="collapse" href="#bs-accordion-group1-'+i+'" data-parent="#bs-accordion-0" onclick=""><i style="font-size:24px;" class="fa fa-thumbs-o-down"></i></a>(1)
+								</h5>
+						</div>
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<span>Προβλημα Φωτισμού (Σπασμένος Φωτιστικό)</span>
+							</h4>
+							<div style="padding-top:5px;">
+								<span>Κορίνθου 33</span>
+							</div>
+							<h5 style="float:right; margin-top:-25px;">
+								<a class="accordion-toggle recommentation_click" data-toggle="collapse" href="#bs-accordion-group1-'+i+'" data-parent="#bs-accordion-0" onclick=""><i style="font-size:24px;" class="fa fa-thumbs-o-up"></i></a>(2)&nbsp;<a class="accordion-toggle recommentation_click" data-toggle="collapse" href="#bs-accordion-group1-'+i+'" data-parent="#bs-accordion-0" onclick=""><i style="font-size:24px;" class="fa fa-thumbs-o-down"></i></a>(0)
+								</h5>
+						</div>
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<span>Προβλημα Πεζοδρόμιο/Δρόμος/Πλατεία (Σπασμένο Παγκάκι)</span>
+							</h4>
+							<div style="padding-top:5px;">
+								<span>Αρατου 54</span>
+							</div>
+							<h5 style="float:right; margin-top:-25px;">
+								<a class="accordion-toggle recommentation_click" data-toggle="collapse" href="#bs-accordion-group1-'+i+'" data-parent="#bs-accordion-0" onclick=""><i style="font-size:24px;" class="fa fa-thumbs-o-up"></i></a>(3)&nbsp;<a class="accordion-toggle recommentation_click" data-toggle="collapse" href="#bs-accordion-group1-'+i+'" data-parent="#bs-accordion-0" onclick=""><i style="font-size:24px;" class="fa fa-thumbs-o-down"></i></a>(0)
+								</h5>
+						</div>
+					</div>
+				</div>
+            </div>
+            <div class="modal outer-element uib_w_49" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="social_media">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal">x</button>
+                            <h4 class="modal-title" id="modal_info_send_issue_title">Πληροφορίες</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="col uib_col_13 single-col" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area vertical-col">
+                                    <div class="tarea widget uib_w_50 d-margins" data-uib="media/text" data-ver="0" name="uib_w_50">
+                                        <div class="widget-container left-receptacle"></div>
+                                        <div class="widget-container right-receptacle"></div>
+                                        <div class="text-container">
+                                            <p id="popup_report">Η αναφορά εστάλει με επιτυχία!</p>
+                                        </div>
+                                    </div>
+                                    <div class="tarea widget uib_w_51 d-margins" data-uib="media/text" data-ver="0" name="uib_w_51">
+                                        <div class="widget-container left-receptacle"></div>
+                                        <div class="widget-container right-receptacle"></div>
+                                        <div class="text-container">
+                                            <p id="msg_modal_published"><strong>Δημοσίευση</strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-pad urow uib_row_6 row-height-6" data-uib="layout/row" data-ver="0">
+                                        <div class="col uib_col_14 col-0_6-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col center">
+                                                <a class="uib-graphic-button default-graphic-sizing hover-graphic-button active-graphic-button widget uib_w_54 d-margins btn_social_height" data-uib="media/graphic_button" data-ver="0" id="btn_send_twitter">
+                                                    <img src="img/twitter1.png">
+
+                                                    <span class="uib-caption"></span>
+                                                </a>
+                                                <span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col uib_col_15 col-0_6-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <a class="uib-graphic-button default-graphic-sizing default-image-sizing hover-graphic-button active-graphic-button default-graphic-button default-graphic-text widget uib_w_55 d-margins btn_social_height" data-uib="media/graphic_button" data-ver="0" id="btn_send_facebook">
+                                                    <img src="img/facebook55.png">
+
+                                                    <span class="uib-caption"></span>
+                                                </a>
+                                                <span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+
+                                        <span class="uib_shim"></span>
+                                    </div>
+                                    <div class="grid grid-pad urow uib_row_11 row-height-11" data-uib="layout/row" data-ver="0">
+                                        <div class="col uib_col_24 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <button class="btn widget uib_w_66 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_popup_return"><i class="el el-return-key button-icon-left" data-position="left"></i>Επιστροφή</button>
+                                                <span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+                                        <span class="uib_shim"></span>
+                                    </div>
+
+                                    <span class="uib_shim"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal outer-element uib_w_67" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="error_popup">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal">x</button>
+                            <h4 class="modal-title">Αναφορά Προβλήματος</h4>
+                        </div>
+
+                        <div class="modal-body" id="modal-body_id">
+                            <div class="col uib_col_25 single-col" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area vertical-col">
+                                    <p id="error_message"></p>
+                                    <span class="uib_shim"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-default" type="button">Κλείσιμο</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal outer-element uib_w_67" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="add_comment">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal">x</button>
+                            <h4 class="modal-title">Προσθήκη σχολίου</h4>
+                        </div>
+
+                        <div class="modal-body" id="modal-body_id">
+                            <div class="col uib_col_25 single-col" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area vertical-col">
+                                    <div class="table-thing widget uib_w_121 d-margins" data-uib="twitter%20bootstrap/text_area" data-ver="1">
+                                        <label class="narrow-control label-top-left">Σχόλιο :</label>
+                                        <textarea rows="4" class="wide-control form-control" wrap="soft" placeholder="Σχόλια" id="txt_add_comment"></textarea>
+                                    </div>
+                                    <button class="btn widget uib_w_59 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_send_comment"><i class="glyphicon glyphicon-camera button-icon-left" data-position="left"></i> Αποστολή</button>
+                                    <span class="uib_shim"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-default" type="button">Κλείσιμο</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <style>
+            /* *** TIME LINE AT COMMENT **** */
+            			
+            			
+            			
+            			
+            			
+            			/* -------------------------------- 
+            
+            Primary style
+            
+            -------------------------------- */
+            /*html * {
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+            }
+            
+            *, *:after, *:before {
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+            }
+            
+            body {
+              font-size: 100%;
+              font-family: "Droid Serif", serif;
+              color: #7f8c97;
+              background-color: #e9f0f5;
+            }
+            
+            a {
+              color: #acb7c0;
+              text-decoration: none;
+              font-family: "Open Sans", sans-serif;
+            }
+            
+            img {
+              max-width: 100%;
+            }
+            
+            h1, h2 {
+              font-family: "Open Sans", sans-serif;
+              font-weight: bold;
+            }
+            */
+            /* -------------------------------- 
+            
+            Modules - reusable parts of our design
+            
+            -------------------------------- */
+            .cd-container {
+              /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
+              width: 90%;
+              max-width: 1170px;
+              margin: 0 auto;
+            }
+            .cd-container::after {
+              /* clearfix */
+              content: '';
+              display: table;
+              clear: both;
+            }
+            
+            /* -------------------------------- 
+            
+            Main components 
+            
+            -------------------------------- */
+            header {
+              height: 200px;
+              line-height: 200px;
+              text-align: center;
+              background: #303e49;
+            }
+            header h1 {
+              color: white;
+              font-size: 18px;
+              font-size: 1.125rem;
+            }
+            @media only screen and (min-width: 1170px) {
+              header {
+                height: 300px;
+                line-height: 300px;
+              }
+              header h1 {
+                font-size: 24px;
+                font-size: 1.5rem;
+              }
+            }
+            
+            #cd-timeline {
+              position: relative;
+              padding: 2em 0;
+              margin-top: 2em;
+              margin-bottom: 2em;
+            }
+            #cd-timeline::before {
+              /* this is the vertical line */
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 18px;
+              height: 100%;
+              width: 4px;
+              background: #d7e4ed;
+            }
+            @media only screen and (min-width: 1170px) {
+              #cd-timeline {
+                margin-top: 3em;
+                margin-bottom: 3em;
+              }
+              #cd-timeline::before {
+                left: 50%;
+                margin-left: -2px;
+              }
+            }
+            
+            .cd-timeline-block {
+              position: relative;
+              margin: 2em 0;
+            }
+            .cd-timeline-block:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            .cd-timeline-block:first-child {
+              margin-top: 0;
+            }
+            .cd-timeline-block:last-child {
+              margin-bottom: 0;
+            }
+            @media only screen and (min-width: 1170px) {
+              .cd-timeline-block {
+                margin: 4em 0;
+              }
+              .cd-timeline-block:first-child {
+                margin-top: 0;
+              }
+              .cd-timeline-block:last-child {
+                margin-bottom: 0;
+              }
+            }
+            
+            .cd-timeline-img {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+            }
+            .cd-timeline-img img {
+              display: block;
+              width: 24px;
+              height: 24px;
+              position: relative;
+              left: 50%;
+              top: 50%;
+              margin-left: -12px;
+              margin-top: -12px;
+            }
+            .cd-timeline-img.cd-picture {
+              background: #75ce66;
+            }
+            .cd-timeline-img.cd-movie {
+              background: #c03b44;
+            }
+            .cd-timeline-img.cd-location {
+              background: #f0ca45;
+            }
+            @media only screen and (min-width: 1170px) {
+              .cd-timeline-img {
+                width: 60px;
+                height: 60px;
+                left: 50%;
+                margin-left: -30px;
+                /* Force Hardware Acceleration in WebKit */
+                -webkit-transform: translateZ(0);
+                -webkit-backface-visibility: hidden;
+              }
+              .cssanimations .cd-timeline-img.is-hidden {
+                visibility: hidden;
+              }
+              .cssanimations .cd-timeline-img.bounce-in {
+                visibility: visible;
+                -webkit-animation: cd-bounce-1 0.6s;
+                -moz-animation: cd-bounce-1 0.6s;
+                animation: cd-bounce-1 0.6s;
+              }
+            }
+            
+            @-webkit-keyframes cd-bounce-1 {
+              0% {
+                opacity: 0;
+                -webkit-transform: scale(0.5);
+              }
+            
+              60% {
+                opacity: 1;
+                -webkit-transform: scale(1.2);
+              }
+            
+              100% {
+                -webkit-transform: scale(1);
+              }
+            }
+            @-moz-keyframes cd-bounce-1 {
+              0% {
+                opacity: 0;
+                -moz-transform: scale(0.5);
+              }
+            
+              60% {
+                opacity: 1;
+                -moz-transform: scale(1.2);
+              }
+            
+              100% {
+                -moz-transform: scale(1);
+              }
+            }
+            @keyframes cd-bounce-1 {
+              0% {
+                opacity: 0;
+                -webkit-transform: scale(0.5);
+                -moz-transform: scale(0.5);
+                -ms-transform: scale(0.5);
+                -o-transform: scale(0.5);
+                transform: scale(0.5);
+              }
+            
+              60% {
+                opacity: 1;
+                -webkit-transform: scale(1.2);
+                -moz-transform: scale(1.2);
+                -ms-transform: scale(1.2);
+                -o-transform: scale(1.2);
+                transform: scale(1.2);
+              }
+            
+              100% {
+                -webkit-transform: scale(1);
+                -moz-transform: scale(1);
+                -ms-transform: scale(1);
+                -o-transform: scale(1);
+                transform: scale(1);
+              }
+            }
+            .cd-timeline-content {
+              position: relative;
+              margin-left: 60px;
+              background: white;
+              border-radius: 0.25em;
+              /*padding: 1em;*/
+              box-shadow: 0 3px 0 #d7e4ed;
+            }
+            .cd-timeline-content:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            .cd-timeline-content h2 {
+              color: #303e49;
+            }
+            .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+              font-size: 13px;
+              font-size: 0.8125rem;
+            }
+            .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+              display: inline-block;
+            }
+            .cd-timeline-content p {
+              margin: 1em 0;
+              line-height: 1.6;
+            }
+            .cd-timeline-content .cd-read-more {
+              float: right;
+              padding: .8em 1em;
+              background: #acb7c0;
+              color: white;
+              border-radius: 0.25em;
+            }
+            .no-touch .cd-timeline-content .cd-read-more:hover {
+              background-color: #bac4cb;
+            }
+            .cd-timeline-content .cd-date {
+              float: left;
+              padding: .8em 0;
+              opacity: .7;
+            }
+            .cd-timeline-content::before {
+              content: '';
+              position: absolute;
+              top: 16px;
+              right: 100%;
+              height: 0;
+              width: 0;
+              border: 7px solid transparent;
+              border-right: 7px solid white;
+            }
+            @media only screen and (min-width: 768px) {
+              .cd-timeline-content h2 {
+                font-size: 20px;
+                font-size: 1.25rem;
+              }
+              .cd-timeline-content p {
+                font-size: 16px;
+                font-size: 1rem;
+              }
+              .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+                font-size: 14px;
+                font-size: 0.875rem;
+              }
+            }
+            @media only screen and (min-width: 1170px) {
+              .cd-timeline-content {
+                margin-left: 0;
+                padding: 1.6em;
+                width: 45%;
+              }
+              .cd-timeline-content::before {
+                top: 24px;
+                left: 100%;
+                border-color: transparent;
+                border-left-color: white;
+              }
+              .cd-timeline-content .cd-read-more {
+                float: left;
+              }
+              .cd-timeline-content .cd-date {
+                position: absolute;
+                width: 100%;
+                left: 122%;
+                top: 6px;
+                font-size: 16px;
+                font-size: 1rem;
+              }
+              .cd-timeline-block:nth-child(even) .cd-timeline-content {
+                float: right;
+              }
+              .cd-timeline-block:nth-child(even) .cd-timeline-content::before {
+                top: 24px;
+                left: auto;
+                right: 100%;
+                border-color: transparent;
+                border-right-color: white;
+              }
+              .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more {
+                float: right;
+              }
+              .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-date {
+                left: auto;
+                right: 122%;
+                text-align: right;
+              }
+              .cssanimations .cd-timeline-content.is-hidden {
+                visibility: hidden;
+              }
+              .cssanimations .cd-timeline-content.bounce-in {
+                visibility: visible;
+                -webkit-animation: cd-bounce-2 0.6s;
+                -moz-animation: cd-bounce-2 0.6s;
+                animation: cd-bounce-2 0.6s;
+              }
+            }
+            
+            @media only screen and (min-width: 1170px) {
+              /* inverse bounce effect on even content blocks */
+              .cssanimations .cd-timeline-block:nth-child(even) .cd-timeline-content.bounce-in {
+                -webkit-animation: cd-bounce-2-inverse 0.6s;
+                -moz-animation: cd-bounce-2-inverse 0.6s;
+                animation: cd-bounce-2-inverse 0.6s;
+              }
+            }
+            @-webkit-keyframes cd-bounce-2 {
+              0% {
+                opacity: 0;
+                -webkit-transform: translateX(-100px);
+              }
+            
+              60% {
+                opacity: 1;
+                -webkit-transform: translateX(20px);
+              }
+            
+              100% {
+                -webkit-transform: translateX(0);
+              }
+            }
+            @-moz-keyframes cd-bounce-2 {
+              0% {
+                opacity: 0;
+                -moz-transform: translateX(-100px);
+              }
+            
+              60% {
+                opacity: 1;
+                -moz-transform: translateX(20px);
+              }
+            
+              100% {
+                -moz-transform: translateX(0);
+              }
+            }
+            @keyframes cd-bounce-2 {
+              0% {
+                opacity: 0;
+                -webkit-transform: translateX(-100px);
+                -moz-transform: translateX(-100px);
+                -ms-transform: translateX(-100px);
+                -o-transform: translateX(-100px);
+                transform: translateX(-100px);
+              }
+            
+              60% {
+                opacity: 1;
+                -webkit-transform: translateX(20px);
+                -moz-transform: translateX(20px);
+                -ms-transform: translateX(20px);
+                -o-transform: translateX(20px);
+                transform: translateX(20px);
+              }
+            
+              100% {
+                -webkit-transform: translateX(0);
+                -moz-transform: translateX(0);
+                -ms-transform: translateX(0);
+                -o-transform: translateX(0);
+                transform: translateX(0);
+              }
+            }
+            @-webkit-keyframes cd-bounce-2-inverse {
+              0% {
+                opacity: 0;
+                -webkit-transform: translateX(100px);
+              }
+            
+              60% {
+                opacity: 1;
+                -webkit-transform: translateX(-20px);
+              }
+            
+              100% {
+                -webkit-transform: translateX(0);
+              }
+            }
+            @-moz-keyframes cd-bounce-2-inverse {
+              0% {
+                opacity: 0;
+                -moz-transform: translateX(100px);
+              }
+            
+              60% {
+                opacity: 1;
+                -moz-transform: translateX(-20px);
+              }
+            
+              100% {
+                -moz-transform: translateX(0);
+              }
+            }
+            @keyframes cd-bounce-2-inverse {
+              0% {
+                opacity: 0;
+                -webkit-transform: translateX(100px);
+                -moz-transform: translateX(100px);
+                -ms-transform: translateX(100px);
+                -o-transform: translateX(100px);
+                transform: translateX(100px);
+              }
+            
+              60% {
+                opacity: 1;
+                -webkit-transform: translateX(-20px);
+                -moz-transform: translateX(-20px);
+                -ms-transform: translateX(-20px);
+                -o-transform: translateX(-20px);
+                transform: translateX(-20px);
+              }
+            
+              100% {
+                -webkit-transform: translateX(0);
+                -moz-transform: translateX(0);
+                -ms-transform: translateX(0);
+                -o-transform: translateX(0);
+                transform: translateX(0);
+              }
+            }
+            
+            			
+            			/* *** END TIME LINE AT COMMENT **** */
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+                        input[type=radio] { 
+                            /*border: 0px;*/
+                            width: 30px;
+                            height: 30px;/*2em;   */
+                            /*margin-right: 50px;
+                            margin-left: 50px;
+                            padding-right: 50px;
+                            padding-left: 50px;           */
+                            border-radius: 20px;
+                        }
+                        input[type=checkbox] {
+                            /*border: 0px;*/
+                            width: 30px;
+                            height: 30px;/*2em;   */
+                            /*margin-right: 50px;
+                            margin-left: 50px;
+                            padding-right: 50px;
+                            padding-left: 50px;           */
+                            border-radius: 20px;
+                        }
+                        .radio+.radio, .checkbox+.checkbox {
+                            margin-top: 10px;
+                        }
+        </style>
+
+        <script>
+            function clear_txt(){
+                document.getElementById('txt_garbage_msg').value= '';    
+            }
+            
+            function focus_txt(){
+                document.getElementById('txt_garbage_msg').focus();
+            }
+            
+            function enable_txt(){
+				$("#rdio_other").prop("checked","true");
+                //document.getElementById('rdio_other').checked = true;
+            }
+            
+            function clear_txt_light(){
+                document.getElementById('txt_lighting_msg').value= '';    
+            }
+            
+            function focus_txt_light(){
+                document.getElementById('txt_lighting_msg').focus();
+            }
+            function focus_txt_green(){
+                document.getElementById('txt_green_msg').focus();
+            }
+            function enable_txt_lighting(){
+                document.getElementById('rdio_other_light').checked = true;
+            }
+            
+            function clear_txt_road(){
+                document.getElementById('txt_road_msg').value= '';    
+            }
+            
+            function clear_txt_green(){
+                document.getElementById('btn_green_allo').value= '';    
+            }
+            
+            function focus_txt_road(){
+                document.getElementById('txt_road_msg').focus();
+            }
+            
+            function enable_txt_road(){
+                document.getElementById('rdio_other_road').checked = true;
+            }
+            
+            function clear_txt_plumbing(){
+                document.getElementById('txt_plumbing_msg').value= '';    
+            }
+            
+            function focus_txt_plumbing(){
+                document.getElementById('txt_plumbing_msg').focus();
+            }
+            
+            function enable_txt_plumbing(){
+                document.getElementById('rdio_other_plumbing').checked = true;
+            }
+            
+            function enable_txt_green(){
+                document.getElementById('btn_green_allo').checked = true;
+            }
+            
+            function focus_txt_protection_policy(){
+                document.getElementById('txt_protection_policy_other').focus();
+            }
+            
+            function enable_txt_protection_policy(){
+                document.getElementById('protection_policy_allo').checked = true;
+            }
+            function clear_txt_protection_policy(){
+                document.getElementById('txt_road_msg').value= '';    
+            }
+            
+            function focus_txt_enviroment(){
+                document.getElementById('txt_enviroment_issue').focus();
+            }
+            
+            function enable_txt_enviroment(){
+                document.getElementById('allo_enviroment').checked = true;
+            }
+            function clear_txt_enviroment(){
+                document.getElementById('txt_enviroment_issue').value= '';    
+            }
+            
+            function exit_app(){
+                uib_sb.toggle_sidebar($(".uib_w_39"));  
+            }
+            
+            function Close_app(){
+                navigator.app.exitApp();
+            }
+            
+            function close_sidebar(){
+                uib_sb.toggle_sidebar($(".uib_w_39")); 
+            }
+            
+
+            var picturecount=0;
+            
+
+            
+            //Camera button functionality
+            var page_active = 0;
+            function takepic(page_var)
+            {
+               page_active = page_var;
+                //navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI, saveToPhotoAlbum: true });
+                
+                navigator.camera.getPicture(onSuccess, onFail, { quality: 20, destinationType: Camera.DestinationType.DATA_URL, correctOrientation : true });                
+                //pictureURL = intel.xdk.camera.getPictureURL(navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI, saveToPhotoAlbum: true }));
+                
+
+            }            
+            
+            function onSuccess(imageData) 
+            {
+             
+				
+                if(page_active===1){
+                    var image = document.getElementById('img_camera');
+                    image.src = "data:image/jpeg;base64," + imageData;
+                    image_upload = "data:image/jpeg;base64," + imageData;
+                }
+                else if (page_active===2){
+                    var image = document.getElementById('img_lighting');
+                    image.src = "data:image/jpeg;base64," + imageData;
+                    image_upload = "data:image/jpeg;base64," + imageData;
+                }
+                else if (page_active===3){
+				
+                    var image = document.getElementById('img_plumping');
+                    image.src = "data:image/jpeg;base64," + imageData;
+                    image_upload = "data:image/jpeg;base64," + imageData;
+                }
+                else if (page_active===4){
+                    var image = document.getElementById('img_road');
+                    image.src = "data:image/jpeg;base64," + imageData;
+                    image_upload = "data:image/jpeg;base64," + imageData;
+                }else if (page_active===5){
+                    var image = document.getElementById('img_protection_policy');
+                    image.src = "data:image/jpeg;base64," + imageData;
+                    image_upload = "data:image/jpeg;base64," + imageData;
+                }else if (page_active===6){
+                    var image = document.getElementById('btn_green_img');
+                    image.src = "data:image/jpeg;base64," + imageData;
+                    image_upload = "data:image/jpeg;base64," + imageData;
+                }else if (page_active===7){
+                    var image = document.getElementById('img_camera_enviroment');
+                    image.src = "data:image/jpeg;base64," + imageData;
+                    image_upload = "data:image/jpeg;base64," + imageData;
+                }
+                
+            }
+            
+            function onFail(message) {
+               console.log("Picture failure: " + message);
+            }
+        </script>
+        <div class="upage hidden" id="uib_page_test">
+            <div class="upage-outer">
+                <div class="uib-header header-bg container-group inner-element uib_w_167 uib-header-fixed" data-uib="layout/header" data-ver="0" id="header_back">
+                    <h2></h2>
+                    <div class="widget-container wrapping-col single-centered"></div>
+                    <div class="widget-container content-area horiz-area wrapping-col left">
+                        <button class="btn widget uib_w_168 d-margins btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_header_back"><i class="el el-return-key" data-position="icon only"></i>
+                        </button><span class="widget uib_w_169 d-margins label label-default" data-uib="twitter%20bootstrap/badge_and_label" data-ver="1" id="lbl_header_back">Επιστροφή</span>
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col right"></div>
+                </div>
+            </div>
+            <div class="upage-outer">
+                <div class="upage-content ac0 content-area vertical-col left" id="page_82_32">
+
+                    <span class="uib_shim"></span>
+
+                    <div class="grid grid-pad urow uib_row_46 row-height-46" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_74 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+
+                    <div class="grid grid-pad urow uib_row_47 row-height-47" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_75 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="grid grid-pad urow uib_row_45 row-height-45" data-uib="layout/row" data-ver="0" id="step_plumbing_1">
+                                    <div class="col uib_col_70 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col" id="container_issues">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-thing widget uib_w_156 d-margins" data-uib="twitter%20bootstrap/text_area" data-ver="1" id="step_plumbing_2">
+                                    <div class="grid grid-pad urow uib_row_29 row-height-29" data-uib="layout/row" data-ver="0">
+                                        <label>&nbsp;</label>
+                                        <div class="col uib_col_52 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <div class="table-thing widget uib_w_121 d-margins" data-uib="twitter%20bootstrap/text_area" data-ver="1">
+                                                    <label class="narrow-control label-top-left" id="lbl_epipleon_paratirisis">Επιπλέον Παρατηρήσεις</label>
+                                                    <textarea rows="4" class="wide-control form-control" wrap="soft" placeholder="Σχόλια" id="txt_plumbing_msg1"></textarea>
+                                                </div>
+                                                <span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+                                        <span class="uib_shim"></span>
+                                    </div>
+                                </div>
+                                <div class="widget uib_w_159 d-margins" id="step_plumbing_3">
+                                    <label>&nbsp;</label>
+                                    <div class="grid grid-pad urow uib_row_7 row-height-7" data-uib="layout/row" data-ver="0">
+                                        <div class="col uib_col_16 col-0_2-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <div class="widget uib_w_58 scale-image d-margins" data-uib="media/img" data-ver="0">
+                                                    <figure class="figure-align">
+                                                        <img src="images/EmptyBox-Phone.png" id="img_plumping">
+
+                                                        <figcaption data-position="bottom"></figcaption>
+                                                    </figure>
+                                                </div>
+                                                <span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col uib_col_17 col-0_10-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <button class="btn widget uib_w_59 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_get_picture_plumbing" onclick="takepic(3)"><i class="glyphicon glyphicon-camera button-icon-left" data-position="left"></i> Λήψη Φωτογραφίας</button>
+                                                <span class="uib_shim"></span>
+                                                <label class="btn widget uib_w_59 d-margins btn-lg btn-info" id="file_plumbing_label"><span id="file_plumbing_label_1">Αλμπουμ …</span>
+                                                    <input id="file_plumbing" type="file" accept="image/*" style="display:none;">
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <span class="uib_shim"></span>
+                                    </div>
+                                </div>
+                                <div class="widget uib_w_159 d-margins" id="step_plumbing_4" style="padding-top:25px;">
+                                    <div id="map_point_plumbing" style="color: black; height:60vh;"></div>
+                                </div>
+                                <div class="widget uib_w_159 d-margins" id="step_plumbing_4_5" style="padding-top:25px;">
+                                    <div class="col uib_col_89 col-1_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div id="bs-accordion-0"></div>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="grid grid-pad urow uib_row_55 row-height-55" data-uib="layout/row" data-ver="0">
+
+                                    <span class="uib_shim"></span>
+                                </div>
+
+                                <div class="widget uib_w_157 d-margins" id="step_plumbing_5">
+                                    <label>&nbsp;</label>
+                                    <h4 class="modal-title" id="lbl_anonymus_report">Επώνυμη Αναφορά Προβλήματος</h4> 
+                                    <div class="col uib_col_30 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area wrapping-col left">
+                                            <div class="tarea widget uib_w_118 d-margins" data-uib="media/text" data-ver="0" name="uib_w_118">
+                                                <div class="widget-container left-receptacle"></div>
+                                                <div class="widget-container right-receptacle"></div>
+                                                <div class="text-container">
+                                                    <p id="plumbing_policy_desc">Πρόβλημα στο δίκτυο!</p>
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-pad urow uib_row_15 row-height-15" data-uib="layout/row" data-ver="0" style="height:auto;">
+                                                <div class="col uib_col_31 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                                    <div class="widget-container content-area vertical-col">
+                                                        <label class="checkbox checkbox-padding-left widget uib_w_89 d-margins chk_2nd_step_padding" data-uib="twitter%20bootstrap/checkbox" data-ver="1">
+                                                            <input type="checkbox" id="chk_anonymus_popup_window_plumbing"><span style="padding-left:20px; font-size:16px; position: relative; top: 7px; " id="_anonymus_popup_window_plumbing">Επώνυμη αναφορά</span>
+                                                        </label>
+                                                        <div class="panel widget uib_w_170 panel-info" data-uib="twitter%20bootstrap/collapsible" data-ver="1" id="collapse_info">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+																	<!-- <a class="accordion-toggle" onclick="false" id="collapse_info_panel" data-toggle="collapse" href="#bs-accordion-group-0" data-parent="#null">Στοιχεία Πολίτη</a> -->
+           														<a class="accordion-toggle" onclick="false" id="collapse_info_panel" data-toggle="collapse" href="" data-parent="#null">Στοιχεία Πολίτη</a>
+       														</h4>
+                                                            </div>
+                                                            <div id="bs-accordion-group-0" class="panel-collapse collapse">
+                                                                <div class="panel-body">
+                                                                    <div class="col uib_col_76 single-col" data-uib="layout/col" data-ver="0">
+                                                                        <div class="widget-container content-area vertical-col">
+                                                                            <div class="table-thing widget uib_w_84 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                                                <label class="narrow-control" for="txt_plumbing_settings_name"></label>
+                                                                                <input class="wide-control form-control default input-lg" type="text" placeholder="Ονοματεπώνυμο" id="txt_plumbing_settings_name">
+                                                                            </div>
+                                                                            <div class="table-thing widget uib_w_85 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                                                <label class="narrow-control" for="txt_plumbing_settings_email"></label>
+                                                                                <input class="wide-control form-control default input-lg" type="email" placeholder="email" id="txt_plumbing_settings_email">
+                                                                            </div>
+                                                                            <div class="table-thing widget uib_w_88 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                                                <label class="narrow-control" for="txt_plumbing_settings_mobile"></label>
+                                                                                <input class="wide-control form-control default input-lg" type="tel" placeholder="Κινητό τηλέφωνο" id="txt_plumbing_settings_mobile">
+                                                                            </div>
+                                                                            <div class="grid grid-pad urow uib_row_54 row-height-54" data-uib="layout/row" data-ver="0">
+                                                                                <div class="col uib_col_87 col-2_2-12" data-uib="layout/col" data-ver="0">
+                                                                                    <div class="widget-container content-area vertical-col">
+                                                                                        <label class="checkbox checkbox-padding-left widget uib_w_190 d-margins" data-uib="twitter%20bootstrap/checkbox" data-ver="1">
+                                                                                            <input type="checkbox" id="chk_email">
+                                                                                        </label>
+                                                                                        <label class="checkbox checkbox-padding-left widget uib_w_191 d-margins" data-uib="twitter%20bootstrap/checkbox" data-ver="1">
+                                                                                            <input type="checkbox" id="chk_sms">
+                                                                                        </label><span class="uib_shim"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col uib_col_88 col-2_10-12" data-uib="layout/col" data-ver="0">
+                                                                                    <div class="widget-container content-area vertical-col" style="font-size:24px; padding-left:15px;padding-top:5px;"><span class="widget uib_w_192 d-margins txt_label_chk txt_label_font-size label label-info" data-uib="twitter%20bootstrap/badge_and_label" style="background-color:#ffffff; color:#000000;text-align: left;"
+                                                                                        data-ver="1" id="lbl_email">email</span>
+                                                                                        <span class="widget uib_w_193 d-margins label label-info txt_label_chk txt_label_font-size" data-uib="twitter%20bootstrap/badge_and_label" style="background-color:#ffffff; color:#000000;text-align: left;" data-ver="1" id="lbl_sms">sms</span>
+                                                                                        <span class="uib_shim"></span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <span class="uib_shim"></span>
+                                                                            </div>
+
+                                                                            <div class="alert no_wrap widget uib_w_120 d-margins alert-danger" data-uib="twitter%20bootstrap/alert" data-ver="1" id="setting_plumbing_alert"></div>
+                                                                            <div>&nbsp;</div>
+                                                                            <div class="grid grid-pad urow uib_row_54 row-height-54">
+                                                                                <p id="msg_send_issue" style="font-size:10px; color:#ff0000;"></p>
+                                                                            </div>
+                                                                            <button class="btn widget uib_w_100 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_change_user_info"><i class="fa button-icon-left" data-position="left"></i>Επεξεργασία στοιχείων</button>
+                                                                            <span class="uib_shim"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <span class="uib_shim"></span>
+                                            </div>
+
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid grid-pad urow uib_row_56 row-height-56" data-uib="layout/row" data-ver="0" id="step_plumbing_6">
+                                    <div class="col uib_col_90 col-1_12-12" data-uib="layout/col" data-ver="0">
+                                        <div id="issue_overview"></div>
+                                        <div class="widget-container content-area vertical-col">
+                                            <button class="btn widget uib_w_83 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_send_plumbing"><i class="fa fa-mail-forward button-icon-left" data-position="left"></i>Αποστολή στον Δήμο</button><span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+
+                                <div class="grid grid-pad urow uib_row_43 row-height-43" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_68 col-0_4-12_4-4" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                            <button class="btn widget uib_w_83 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_plumbing_cancel" style="font-size:small;"><i class="glyphicon glyphicon-remove button-icon-top" data-position="top" style="padding-bottom:8px; "></i>Ακύρωση</button>
+                                        </div>
+                                    </div>
+                                    <div class="col uib_col_71 col-0_4-12_4-8" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <button class="btn widget uib_w_158 d-margins btn-lg btn-warning" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_plumbing_back" style="font-size:small;"><i class="glyphicon glyphicon-chevron-left button-icon-top" data-position="top" style="padding-bottom:8px; "></i>Πίσω</button><span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col uib_col_72 col-0_4-12_4-8" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <button class="btn widget uib_w_155 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_plumbing_next" style="font-size:small;"><i class="glyphicon glyphicon-chevron-right button-icon-top" data-position="top" style="padding-bottom:8px; "></i>Επόμενο</button><span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="modal outer-element uib_w_172" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="popup_verify">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Πιστοποίηση</h4>
+                        </div>
+
+                        <div class="modal-body" style="overflow-y:scroll; height:70%;">
+                            <div class="col uib_col_78 single-col" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area wrapping-col left">
+                                    <div class="grid grid-pad urow uib_row_48 row-height-48" data-uib="layout/row" data-ver="0">
+                                        <div class="col uib_col_79 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <div class="table-thing widget uib_w_173 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                    <label class="narrow-control" for="txt_popup_name"></label>
+                                                    <input class="wide-control form-control default input-lg" type="text" placeholder="Ονοματεπώνυμο" id="txt_popup_name">
+                                                </div><span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+                                        <span class="uib_shim"></span>
+                                    </div>
+                                    <div class="grid grid-pad urow uib_row_49 row-height-49" data-uib="layout/row" data-ver="0">
+                                        <div class="col uib_col_80 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <div class="tarea widget uib_w_178 d-margins" data-uib="media/text" data-ver="0" name="uib_w_178" id="msg_verify_email">
+                                                    <div class="widget-container left-receptacle"></div>
+                                                    <div class="widget-container right-receptacle"></div>
+                                                    <div class="text-container">
+                                                        <p style="text-align:justify; font-size:12px;">Συμπληρώστε το email σας και πατήστε πιστοποίηση ώστε να λαμβάνετε ενημερώσεις για την κατάσταση των αιτημάτων σας στο email σας!</p>
+                                                    </div>
+                                                </div>
+                                                <div class="table-thing widget uib_w_174 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                    <label class="narrow-control" for="txt_email_verify_popup"></label>
+                                                    <input class="wide-control form-control default input-lg" type="email" placeholder="email" id="txt_email_verify_popup">
+                                                </div>
+
+                                                <button class="btn widget uib_w_175 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_verify_email"><i class="fa fa-shield button-icon-left" data-position="left"></i>Πιστοποίηση</button>
+                                                <span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+                                        <span class="uib_shim"></span>
+                                    </div>
+                                    <div class="grid grid-pad urow uib_row_50 row-height-50" data-uib="layout/row" data-ver="0" id="group_mobile">
+                                        <div class="col uib_col_81 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                            <div class="widget-container content-area vertical-col">
+                                                <div class="tarea widget uib_w_179 d-margins" data-uib="media/text" data-ver="0" name="uib_w_179" id="msg_verify_sms">
+                                                    <div class="widget-container left-receptacle"></div>
+                                                    <div class="widget-container right-receptacle"></div>
+                                                    <div class="text-container">
+                                                        <p style="text-align:justify; font-size:12px;">Συμπληρώστε το κινητό σας νούμερο και πατήστε πιστοποίηση ώστε να λαμβάνεται ενημερώσεις για την κατάσταση των αιτήματών σας με sms μύνημα!</p>
+                                                    </div>
+                                                </div>
+                                                <div class="table-thing widget uib_w_176 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                    <label class="narrow-control" for="txt_mobile_number"></label>
+                                                    <input class="wide-control form-control default input-lg" type="tel" placeholder="Κινητό" id="txt_mobile_number">
+                                                </div>
+
+                                                <button class="btn widget uib_w_177 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_verify_sms"><i class="fa fa-shield button-icon-left" data-position="left"></i>Πιστοποίηση</button>
+                                                <span class="uib_shim"></span>
+                                            </div>
+                                        </div>
+                                        <span class="uib_shim"></span>
+                                    </div>
+
+                                    <span class="uib_shim"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-default" type="button" id="btn_popup_close_verify">Κλείσιμο</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+        <div class="upage hidden" id="uib_my_issue">
+            <div class="upage-outer">
+                <div class="uib-header header-bg container-group inner-element uib_w_194" data-uib="layout/header" data-ver="0">
+                    <h2></h2>
+                    <div class="widget-container wrapping-col single-centered"></div>
+                    <div class="widget-container content-area horiz-area wrapping-col left">
+                        <button class="btn widget uib_w_195 d-margins btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_return"><i class="el el-return-key" data-position="icon only"></i>
+                        </button>
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col right"></div>
+                </div>
+                <div class="upage-content ac0 content-area vertical-col left" id="page_23_66">
+
+                    <ul class="nav widget uib_w_210 nav-tabs d-margins" role="tablist" data-uib="twitter%20bootstrap/tab_bar" data-ver="1">
+                        <li role="presentation" class="widget uib_w_211 active" data-uib="twitter%20bootstrap/tab_item" data-ver="1" id="tabs_li1"><a role="tab" data-toggle="tab" href="#in_progress" id="clk_inprogress">Ανοιχτό / Σε εξέλιξη</a>
+                        </li>
+                        <li role="presentation" class="widget uib_w_212" data-uib="twitter%20bootstrap/tab_item" data-ver="1" id="tabs_li2"><a role="tab" data-toggle="tab" href="#resolved" id="clk_resolved">Ολοκληρωμένα</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="in_progress">
+                        <div id="bs-accordion-2"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="resolved">
+                        <div id="bs-accordion-3"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal outer-element uib_w_67" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="modal_waiting_page">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <button class="close" data-dismiss="modal">x</button> -->
+                        <h4 class="modal-title">Περιμένετε....</h4>
+                    </div>
+
+                    <div class="modal-body" id="modal-body_id">
+                        <div class="col uib_col_25 single-col" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div style="font-size:32px;">
+                                    <center><i class="fa fa-refresh  fa-spin fa-2x fa-fw"></i>
+                                    </center>
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal outer-element uib_w_172" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="popup_verify">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><span class="modal_verify_user">Πιστοποίηση</span></h4>
+                    </div>
+                    <div class="modal-body" style="overflow-y:scroll; height:70%;">
+                        <div class="col uib_col_78 single-col" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area wrapping-col left">
+                                <div class="grid grid-pad urow uib_row_48 row-height-48" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_79 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div class="table-thing widget uib_w_173 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control" for="txt_popup_name"></label>
+                                                <input class="wide-control form-control default input-lg" type="text" placeholder="Ονοματεπώνυμο" id="txt_popup_name">
+                                            </div><span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+                                <div class="grid grid-pad urow uib_row_49 row-height-49" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_80 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div class="tarea widget uib_w_178 d-margins" data-uib="media/text" data-ver="0" name="uib_w_178" id="msg_verify_email">
+                                                <div class="widget-container left-receptacle"></div>
+                                                <div class="widget-container right-receptacle"></div>
+                                                <div class="text-container">
+                                                    <p style="text-align:justify; font-size:12px;" class="_modal_verify_txt_msg">Συμπληρώστε το email σας και πατήστε πιστοποίηση ώστε να λαμβάνετε ενημερώσεις για την κατάσταση των αιτημάτων σας στο email σας!</p>
+                                                </div>
+                                            </div>
+                                            <div class="table-thing widget uib_w_174 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control" for="txt_email_verify_popup"></label>
+                                                <input class="wide-control form-control default input-lg" type="email" placeholder="email" id="txt_email_verify_popup">
+                                            </div>
+                                            <button class="btn widget uib_w_175 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_verify_email"><i class="fa fa-shield button-icon-left" data-position="left"></i>Πιστοποίηση</button>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+                                <div class="grid grid-pad urow uib_row_50 row-height-50" data-uib="layout/row" data-ver="0" id="group_mobile">
+                                    <div class="col uib_col_81 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div class="tarea widget uib_w_179 d-margins" data-uib="media/text" data-ver="0" name="uib_w_179" id="msg_verify_sms">
+                                                <div class="widget-container left-receptacle"></div>
+                                                <div class="widget-container right-receptacle"></div>
+                                                <div class="text-container">
+                                                    <p style="text-align:justify; font-size:12px;" class="_modal_verify_txt_msg_mobile">Συμπληρώστε το κινητό σας νούμερο και πατήστε πιστοποίηση ώστε να λαμβάνεται ενημερώσεις για την κατάσταση των αιτήματών σας με sms μύνημα!</p>
+                                                </div>
+                                            </div>
+                                            <div class="table-thing widget uib_w_176 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control" for="txt_mobile_number"></label>
+                                                <input class="wide-control form-control default input-lg" type="tel" placeholder="Κινητό" id="txt_mobile_number">
+                                            </div>
+                                            <button class="btn widget uib_w_177 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_verify_sms"><i class="fa fa-shield button-icon-left" data-position="left"></i>Πιστοποίηση</button>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button" id="btn_popup_close_verify">Κλείσιμο</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal outer-element uib_w_180" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="popup_pumbing_email_verify">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title" id="modal_email_certification_header">Πιστοποίηση  email</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col uib_col_82 single-col" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="grid grid-pad urow uib_row_51 row-height-51" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_83 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div class="tarea widget uib_w_184 d-margins" data-uib="media/text" data-ver="0" name="uib_w_184">
+                                                <div class="widget-container left-receptacle"></div>
+                                                <div class="widget-container right-receptacle"></div>
+                                                <div class="text-container">
+                                                    <p id="msg_popup_verify_email">info.</p>
+                                                </div>
+                                            </div>
+                                            <div class="table-thing widget uib_w_182 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control" for="txt_popup_plumbing_verify_code_email"></label>
+                                                <input class="wide-control form-control default input-lg" type="tel" placeholder="Κωδικός Πιστοποίησης" id="txt_popup_plumbing_verify_code_email">
+                                            </div>
+                                            <p id="msg_popup_verify_email_txt" style="color:red;"></p>
+                                            <button class="btn widget uib_w_183 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_popup_final_verify"><i class="fa fa-shield button-icon-left" data-position="left"></i>Πιστοποίηση</button>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal outer-element uib_w_185" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="popup_pumbing_sms_verify">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Πιστοποίηση Κινητού</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col uib_col_84 single-col" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="grid grid-pad urow uib_row_53 row-height-53" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_86 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div class="tarea widget uib_w_186 d-margins" data-uib="media/text" data-ver="0" name="uib_w_186">
+                                                <div class="widget-container left-receptacle"></div>
+                                                <div class="widget-container right-receptacle"></div>
+                                                <div class="text-container">
+                                                    <p id="msg_popup_verify_sms">info!</p>
+                                                </div>
+                                            </div>
+                                            <div class="table-thing widget uib_w_187 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                                <label class="narrow-control" for="txt_popup_plumbing_verify_sms_code"></label>
+                                                <input class="wide-control form-control default input-lg" type="tel" placeholder="Κωδικός πιστοποίησης" id="txt_popup_plumbing_verify_sms_code">
+                                            </div>
+                                            <p id="msg_popup_verify_mobile_txt" style="color:red;"></p>
+                                            <button class="btn widget uib_w_188 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_popup_plumbing_verify_sms"><i class="fa fa-shield button-icon-left" data-position="left"></i>Πιστοποίηση</button>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal outer-element uib_w_189" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="social_media_new">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Πληροφορίες</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col uib_col_13 single-col" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="tarea widget uib_w_50 d-margins" data-uib="media/text" data-ver="0" name="uib_w_50">
+                                    <div class="widget-container left-receptacle"></div>
+                                    <div class="widget-container right-receptacle"></div>
+                                    <div class="text-container">
+                                        <p id="popup_report_1">Η αναφορά εστάλει με επιτυχία!</p>
+                                    </div>
+                                </div>
+                                <div class="tarea widget uib_w_51 d-margins" data-uib="media/text" data-ver="0" name="uib_w_51">
+                                    <div class="widget-container left-receptacle"></div>
+                                    <div class="widget-container right-receptacle"></div>
+                                    <div class="text-container">
+                                        <p id="modal_info_send_issue_publish"><strong>Δημοσίευση</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-pad urow uib_row_6 row-height-6" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_14 col-0_6-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col center">
+                                            <a class="uib-graphic-button default-graphic-sizing hover-graphic-button active-graphic-button widget uib_w_54 d-margins btn_social_height" data-uib="media/graphic_button" data-ver="0" id="btn_send_twitter_new">
+                                                <img src="img/twitter1.png">
+
+                                                <span class="uib-caption"></span>
+                                            </a>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col uib_col_15 col-0_6-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <a class="uib-graphic-button default-graphic-sizing default-image-sizing hover-graphic-button active-graphic-button default-graphic-button default-graphic-text widget uib_w_55 d-margins btn_social_height" data-uib="media/graphic_button" data-ver="0" id="btn_send_facebook_new">
+                                                <img src="img/facebook55.png">
+
+                                                <span class="uib-caption"></span>
+                                            </a>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+
+                                    <span class="uib_shim"></span>
+                                </div>
+                                <div class="grid grid-pad urow uib_row_11 row-height-11" data-uib="layout/row" data-ver="0">
+                                    <div class="col uib_col_24 col-0_12-12" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <button class="btn widget uib_w_66 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_popup_return_new"><i class="el el-return-key button-icon-left" data-position="left"></i>Επιστροφή</button>
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                    <span class="uib_shim"></span>
+                                </div>
+
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal outer-element uib_w_171" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="false" id="popup_info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title" id="modal_info_title">Πληροφορίες</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col uib_col_77 single-col" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <p id="popup_info_details"></p>
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="close" data-dismiss="modal" id="modal_info_close_btn">Κλείσιμο</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal outer-element uib_w_171" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="false" id="popup_info_language">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Language</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col uib_col_77 single-col" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+
+                                <fieldset class="widget uib_w_216 d-margins" data-uib="twitter%20bootstrap/radio_group" data-ver="1" data-child-name="bs-radio-group-0">
+                                    <label class="radio radio-padding-left widget uib_w_217" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                        <input type="radio" name="bs-radio-group-0" id="btn_gr_1"><span id="lbl_btn_gr_1" style="padding-left: 24px; font-size: 16px; margin-top: 7px; position: absolute;"><img src="img/if_Grecee_298418.png" style="width:30px;"> &nbsp;Ελληνικά</span>
+                                    </label>
+                                    <label class="radio radio-padding-left widget uib_w_218" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                        <input type="radio" name="bs-radio-group-0" id="btn_en_1"> <span id="lbl_btn_en_1" style="padding-left: 24px; font-size: 16px; margin-top: 7px; position: absolute;"><img src="img/if_United-Kingdom_298478.png" style="width:30px;"> &nbsp;English</span>
+                                    </label>
+                                </fieldset>
+
+                                <span class="uib_shim"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

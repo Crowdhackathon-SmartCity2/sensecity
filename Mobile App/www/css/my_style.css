@@ -1,0 +1,257 @@
+/* ******************************* */
+/*    Custom style for this app    */
+/* ******************************* */
+
+body{
+    background-image: url('../img/app_background.png');
+    background-position: bottom;
+    background-color: #6c7b9b;
+    background-repeat: no-repeat;
+}
+
+#btn_garbage{
+    background-image: url('../img/garbage.png');   
+    background-position: right;
+    background-size: 250px 55px;
+    background-repeat: no-repeat;
+}
+
+#btn_light{
+    background-image: url('../img/light_1.png');   
+    background-position: right;
+    background-size: 250px 55px;
+    background-repeat: no-repeat;
+}
+
+#btn_plumping{
+    background-image: url('../img/plumping.png');   
+    background-position: right;
+    background-size: 250px 55px;
+    background-repeat: no-repeat;
+}
+
+#btn_road_construction{
+    background-image: url('../img/road.png');   
+    background-position: right;
+    background-size: 250px 55px;
+    background-repeat: no-repeat;
+}
+
+#btn_environmental_issues{
+    background-image: url('../img/enviromental_issues.png');   
+    background-position: right;
+    background-size: 250px 55px;
+    background-repeat: no-repeat;
+}
+
+#btn_angry{
+    background-image: url('../img/angry.png');   
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45px 45px;
+}
+
+#btn_neutral{
+    background-image: url('../img/cool.png');   
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45px 45px;
+}
+
+#btn_happy{
+    background-image: url('../img/happy.png');   
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45px 45px;
+}
+
+#btn_protection_policy{
+    background-image: url('../img/protection-policy.png');   
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 100% 55px;
+}
+
+#btn_green{
+    background-image: url('../img/green.png');   
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 250px 55px;
+}
+
+#page_78_74 button{
+    height: 55px;    
+}
+
+#btn_settings{
+    background-image: url('../img/settings.png');
+    background-size: 40px 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #FFFFFF;
+    height: 45px;
+    width: 45px;
+}
+
+/*
+#btn_map{
+    background-image: url('../img/map30.png');
+    background-size: 40px 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #FFFFFF;
+    height: 45px;
+    width: 45px;
+}*/
+
+#desc_garbage{
+    display: none;
+}
+
+#desc_lighting{
+    display: none;
+}
+
+#desc_plumping{
+    display: none;
+}
+
+#desc_road_construction{
+    display: none;
+}
+
+#desc_policy_protection{
+    display: none;
+}
+
+#desc_green{
+    display: none;
+}
+
+#desc_enviroment{
+    display: none;
+}
+
+
+@media screen and (min-height: 900px) {
+   /* body{
+        background-image: url('../img/big_background_sensecity.jpg') !important;    
+        background-size: 100% 100% !important;
+       
+    }*/
+   
+    #page_78_74 button{
+        height: 100px !important;        
+    }
+    
+    #btn_garbage{        
+        background-size: 450px 100px !important;        
+    }
+    #btn_light{
+        background-size: 450px 100px !important;
+    }
+    #btn_plumping{
+        background-size: 450px 100px !important;
+    }
+    #btn_road_construction{
+        background-size: 450px 100px !important;
+    }
+    #btn_environmental_issues{
+        background-size: 450px 100px !important;
+    }
+    #btn_protection_policy{
+        background-size: 450px 100px !important;
+    }
+    #btn_green{
+        background-size: 450px 100px !important;
+    }
+    
+    #btn_angry{
+        background-size: 55px 55px !important;
+    }
+    #btn_neutral{
+        background-size: 55px 55px !important;
+    }
+    #btn_happy{
+        background-size: 55px 55px !important;
+    }
+    
+    #desc_garbage{
+        display: block !important;
+        font-weight: 300;
+    }
+
+    #desc_lighting{
+        display: block !important;
+        font-weight: 300;
+    }
+
+    #desc_plumping{
+        display: block !important;
+        font-weight: 300;
+    }
+
+    #desc_road_construction{
+        display: block !important;
+        font-weight: 300;
+    }
+    
+    #desc_policy_protection{
+        display: block !important;
+        font-weight: 300;
+    }
+
+    #desc_green{
+        display: block !important;
+        font-weight: 300;
+    }
+
+    #desc_enviroment{
+        display: block !important;
+        font-weight: 300;
+    }
+    
+    
+}
+
+#lbl_header_back{
+    background-color: transparent;
+    font-size: 24px;
+    color: #7b86d4;
+    font-weight: 300;
+}
+
+
+#btn_plumbing_cancel{
+	font-size: 11px !important;
+	padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+#btn_plumbing_back{
+	font-size: 11px !important;
+	padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+#btn_plumbing_next{
+	font-size: 11px !important;
+	padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+#btn_get_picture_plumbing{
+	font-size: 12px !important;
+}
+
+#file_plumbing_label{
+	font-size: 12px !important;
+}
+
+#btn_change_user_info{
+	font-size: 14px !important;
+}
+
+#btn_send_plumbing{
+	font-size: 14px !important;
+}
